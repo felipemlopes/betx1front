@@ -22,7 +22,7 @@
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <div class="dropdown">
               <div class="text-white px-1 py-2">
-                <fa-icon :icon="faUserAlt" class="pr-5 pointer" v-on:click="toggleUserMenu" v-click-outside="externalClick"/>
+                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" v-click-outside="externalClick"/>
               </div>
               <ul class="dropdown-menu" :class="{ 'show': usermenushow }">
                 <li>
@@ -207,6 +207,21 @@
                     </div>
 
                     <div class="mb-3">
+                      <label for="name" class="form-label text-white-50">Usuário</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :class="{'is-invalid' : error.username}"
+                        id="username"
+                        v-model="form.username"
+                        autocomplete="off"
+                        :disabled="loading"
+                        placeholder=""
+                      />
+                      <div class="invalid-feedback" v-show="error.username">{{ error.username }}</div>
+                    </div>
+
+                    <div class="mb-3">
                       <label for="document" class="form-label text-white-50">CPF</label>
                       <input
                         type="text"
@@ -362,6 +377,7 @@ export default {
       loading: false,
       form: {
         name: null,
+        username: null,
         document: null,
         email: null,
         password: null,
@@ -370,6 +386,7 @@ export default {
       },
       error: {
         name: null,
+        username: null,
         document: null,
         email: null,
         password: null,
@@ -458,6 +475,7 @@ export default {
       this.loading = true;
       this.$axios.post('/laravel/api/register', {
         name: this.form.name,
+        username: this.form.username,
         document: this.form.document,
         email: this.form.email,
         password: this.form.password,
@@ -496,6 +514,7 @@ export default {
     },
     setErrors(errors) {
       this.error.name = errors.name ? errors.name[0] : null;
+      this.error.username = errors.username ? errors.username[0] : null;
       this.error.document = errors.document ? errors.document[0] : null;
       this.error.email = errors.email ? errors.email[0] : null;
       this.error.password = errors.password ? errors.password[0] : null;
@@ -503,6 +522,7 @@ export default {
     },
     clearErrors() {
       this.error.name = null;
+      this.error.username = null;
       this.error.document = null;
       this.error.email = null;
       this.error.password = null;
