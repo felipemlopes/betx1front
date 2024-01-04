@@ -3,8 +3,8 @@
   <div class="">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 d-flex justify-content-center" v-show="promotion!==null" style="">
-            <img :src="promotion" style="width: auto; height:200px;">
+          <div class="col-md-12 d-flex justify-content-center" v-show="promotion.thumb!==null" style="">
+            <img :src="promotion.thumb" style="width: auto; height:200px;">
           </div>
           <div class="col-md-12 mt-5">
             <h1 class="text-warning">
@@ -52,7 +52,10 @@ export default {
   layout: 'default',
   data(){
     return {
-      promotion: null,
+      promotion: {
+        thumb: null,
+      },
+
     };
   },
   computed: {
@@ -67,7 +70,7 @@ export default {
     async getPromotion() {
       this.$axios.get("/laravel/api/promotion/")
         .then(res => {
-          this.promotion = res.data.data.thumb;
+          this.promotion.thumb = res.data.data.thumb;
         })
         .catch(err => {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})

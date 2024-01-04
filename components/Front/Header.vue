@@ -15,6 +15,9 @@
             </a>
           </li>
 
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+            <p class="text-white py-2">Bem-vindo {{ username }}!</p>
+          </li>
 
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <div class="dropdown">
@@ -23,6 +26,46 @@
               </div>
               <ul class="dropdown-menu" :class="{ 'show': usermenushow }">
                 <li>
+                  <NuxtLink :to="{ name:'cassino-conta'}" class="dropdown-item">
+                    <fa-icon :icon="faUserAlt" style="margin-right: 10px;"/>
+                    Conta
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="dropdown-item">
+                    <fa-icon :icon="faPlusSquare" style="margin-right: 10px;"/>
+                    Depositar
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-saque'}" class="dropdown-item">
+                    <fa-icon :icon="faMinusSquare" style="margin-right: 10px;"/>
+                    Sacar
+                  </NuxtLink>
+                  <a class="dropdown-item" v-on:click="openModalAffiliate">
+                    <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
+                    Indique Um Amigo
+                  </a>
+                  <NuxtLink :to="{ name:'cassino-conta-indique'}" >
+
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-transacoes'}" class="dropdown-item">
+                    <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
+                    Transações
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-historico'}" class="dropdown-item">
+                    <fa-icon :icon="faClock" style="margin-right: 10px;"/>
+                    Histórico
+                  </NuxtLink>
+                  <!--<NuxtLink :to="{ name:'cassino-conta-bonus'}" class="dropdown-item">
+                    <fa-icon :icon="faGift" style="margin-right: 10px;"/>
+                    Bônus
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-preferencias'}" class="dropdown-item">
+                    <fa-icon :icon="faGear" style="margin-right: 10px;"/>
+                    Preferêcias
+                  </NuxtLink>
+                  <NuxtLink :to="{ name:'cassino-conta-recompensas'}" class="dropdown-item">
+                    <fa-icon :icon="faMedal" style="margin-right: 10px;"/>
+                    Recompensas
+                  </NuxtLink>-->
+                  <hr class="dropdown-divider">
                   <a class="dropdown-item" v-on:click="dologout">
                     <fa-icon :icon="faDoorClosed" style="margin-right: 10px;"/>
                     Sair
@@ -82,9 +125,9 @@
                   <form @submit.prevent="login">
 
                     <div class="mb-3">
-                      <label for="username" class="form-label text-white-50">Email</label>
+                      <label for="username" class="form-label text-white-50">Email ou Usuário</label>
                       <input
-                        type="email"
+                        type="text"
                         class="form-control"
                         :class="{'is-invalid' : error.email}"
                         id="email"
@@ -254,23 +297,23 @@
           <div class="modal-body">
             <div class="card">
               <div class="card-body">
-                <h1 class="text-center text-wite pb-2 mb-2 fs-3">Indique um Amigo</h1>
+                <h1 class="text-center text-warning pb-2 mb-2 fs-3">Indique um Amigo</h1>
 
 
-                <p class="fw-bold fs-5 text-center">
-                  Convide Amigos, Ganhe Dinheiro
+                <p class="fw-bold fs-5 text-center text-white">
+                  Convide Amigos, <span class="text-success">Ganhe Dinheiro</span>
                 </p>
 
-                <p class="text-center">
+                <p class="text-center text-white">
                   Receba saldo em dinheiro para todos os amigos que você indicar
                 </p>
 
                 <div class="form">
-                  <p class="text-center fw-bold">Compartilhe seu link de convite</p>
+                  <p class="text-center fw-bold text-white">Compartilhe seu link de convite</p>
 
                   <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-                    <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" v-model="affiliatelink">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" v-on:click="copyLinkAffiliate">Copiar</button>
                   </div>
 
                 </div>
@@ -308,6 +351,9 @@ export default {
   },
   data() {
     return {
+      user_id: null,
+      username: null,
+      link_indication: "",
       balance: 0.00,
       usermenushow: false,
       modallogin: false,
@@ -332,6 +378,9 @@ export default {
     };
   },
   computed: {
+    affiliatelink () {
+      return this.link_indication+this.user_id
+    },
     faUserAlt () {
       return faUserAlt
     },
@@ -372,6 +421,8 @@ export default {
   mounted() {
     this.$axios.$get("/laravel/sanctum/csrf-cookie");
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
+    this.link_indication = window.location.host+"?ref="
+    this.getUser()
   },
   methods: {
     async dologout(){
@@ -386,15 +437,22 @@ export default {
         password: this.form.password,
       })
         .then(res => {
-          //localStorage.setItem('_token',res.data)
           this.$store.commit('auth/setToken', res.data)
           this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
-      });
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
+          (code.response.data.message==="Credentials not match")
+            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+            : null;
+
+        });
     },
     register() {
       this.loading = true;
@@ -406,25 +464,34 @@ export default {
         phone: this.form.phone,
       })
         .then(res => {
-
           this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
             })
             .then(res => {
-              //localStorage.setItem('_token',res.data)
               this.$store.commit('auth/setToken', res.data)
               this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
               this.$toast.success('Logado com sucesso!',{duration:600})
               this.$router.go(0)
             }).catch(err => {
-            const code = err
-            this.setErrors(code.response.data.errors)
+              const code = err
+              console.log(code.response.data)
+              this.loading = false;
+              (code.response.data.errors)
+                ? this.setErrors(code.response.data.errors)
+                : this.clearErrors();
+              (code.response.data.message==="Credentials not match")
+                ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+                : null;
           });
 
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
       });
     },
     setErrors(errors) {
@@ -469,8 +536,21 @@ export default {
       this.modalaffiliate = false
     },
     copyLinkAffiliate() {
-      navigator.clipboard.writeText(this.$refs.foo.$el.outerHTML)
-    }
+      navigator.clipboard.writeText(this.link_indication)
+      this.$toast.success('Link Copiado!',{duration:600})
+    },
+    async getUser() {
+      if(this.$cookies.get("tokenauth")){
+        this.$axios.get("/laravel/api/user/")
+          .then(res => {
+            this.user_id = res.data.data.id;
+            this.username = res.data.data.username;
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          });
+      }
+    },
   },
 
 };

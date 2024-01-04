@@ -5,13 +5,29 @@
         Saque
       </h1>
       <div class="col-md-12 text-center mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <p class="text-white">
+              Antes de fazer um saque Pix, certifique-se de ter registrado seu CPF como chave Pix no seu aplicativo bancário.
+            </p>
+
+            <ol class="text-white-50" style="text-align: left;">
+              <li>Abra o aplicativo bancário</li>
+              <li>Vá para a seção Pix do aplicativo bancário</li>
+              <li>Selecione "Minhas Chaves"</li>
+              <li> Selecione a opção "Registrar Chave," e registre seu CPF</li>
+              <li>Assim que seu banco confirmar que a chave está registrada, você poderá receber saques via Pix</li>
+            </ol>
+          </div>
+
+        </div>
 
       </div>
 
       <div class="col-md-12 mb-3 pb-3">
         <div class="row justify-content-center">
           <div class="col-md-5">
-            <div class="form-group">
+            <!--<div class="form-group">
               <label class="">Tipo de Chave pix</label>
               <select class="form-control" name="pix_key_type" id="pix_key_type" v-model="form.pixkeytype">
                 <option value="">-- Tipo de chave --</option>
@@ -25,7 +41,7 @@
             <div class="form-group text-white">
               <label for="">Chave pix</label>
               <input type="text" id="amount" name="amount"class="form-control" v-model="form.pixkey">
-            </div>
+            </div>-->
 
             <div class="form-group text-white">
               <label for="">Valor</label>

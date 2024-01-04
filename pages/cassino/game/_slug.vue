@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     onReceiveMessage(event) {
-      //console.log(event)
       this.$store.commit('user/setTotalbalance',JSON.parse(event.data).balance)
     },
     async getGame() {

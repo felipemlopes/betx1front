@@ -16,6 +16,9 @@
             </a>
           </li>
 
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+            <p class="text-white py-2">Bem-vindo {{ username }}!</p>
+          </li>
 
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <div class="dropdown">
@@ -147,9 +150,9 @@
                   <form @submit.prevent="login">
 
                     <div class="mb-3">
-                      <label for="username" class="form-label text-white-50">Email</label>
+                      <label for="username" class="form-label text-white-50">Email ou Usuário</label>
                       <input
-                        type="email"
+                        type="text"
                         class="form-control"
                         :class="{'is-invalid' : error.email}"
                         id="email"
@@ -374,6 +377,7 @@ export default {
   data() {
     return {
       user_id: null,
+      username: null,
       link_indication: "",
       balance: 0.00,
       usermenushow: false,
@@ -458,14 +462,20 @@ export default {
         password: this.form.password,
       })
         .then(res => {
-          //localStorage.setItem('_token',res.data)
           this.$store.commit('auth/setToken', res.data)
           this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
+          (code.response.data.message==="Credentials not match")
+            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+            : null;
       });
     },
     register() {
@@ -478,25 +488,34 @@ export default {
         phone: this.form.phone,
       })
         .then(res => {
-
           this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
           })
             .then(res => {
-              //localStorage.setItem('_token',res.data)
               this.$store.commit('auth/setToken', res.data)
               this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
               this.$toast.success('Logado com sucesso!',{duration:600})
               this.$router.go(0)
             }).catch(err => {
-            const code = err
-            this.setErrors(code.response.data.errors)
+              const code = err
+              console.log(code.response.data)
+              this.loading = false;
+              (code.response.data.errors)
+                ? this.setErrors(code.response.data.errors)
+                : this.clearErrors();
+              (code.response.data.message==="Credentials not match")
+                ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+                : null;
           });
 
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
       });
     },
     setErrors(errors) {
@@ -545,13 +564,16 @@ export default {
       this.$toast.success('Link Copiado!',{duration:600})
     },
     async getUser() {
-      this.$axios.get("/laravel/api/user/")
-        .then(res => {
-          this.user_id = res.data.data.id;
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-        });
+      if(this.$cookies.get("tokenauth")){
+        this.$axios.get("/laravel/api/user/")
+          .then(res => {
+            this.user_id = res.data.data.id;
+            this.username = res.data.data.username;
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          });
+      }
     },
   },
 

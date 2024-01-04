@@ -22,9 +22,9 @@
             <!-- <li class="menu-title">Navigation</li> -->
 
             <li>
-              <a href="#" class="btn btn-primary btn-block mx-2 fw-bold fs-5">
-                Ganhe R$50 grátis
-              </a>
+              <NuxtLink :to="{ name:'cassino-promocoes-id', params:{id:promotion.id}  }" class="btn btn-primary btn-block mx-2 fw-bold fs-5">
+                Bônus de até R${{promotion.limit}}
+              </NuxtLink>
 
             </li>
 
@@ -79,7 +79,16 @@ export default {
 
   data(){
     return {
-
+      promotion: {
+        id: null,
+        name: null,
+        code: null,
+        thumb: null,
+        description: null,
+        rollover: null,
+        percent: null,
+        limit: null
+      },
     };
   },
   computed: {
@@ -92,8 +101,25 @@ export default {
   },
   mounted() {
     this.$store.dispatch('games/fetchPopularGames')
+    this.getPromotion()
   },
   methods: {
+    async getPromotion() {
+      this.$axios.get("/laravel/api/promotion/")
+        .then(res => {
+          this.promotion.id = res.data.data.id;
+          this.promotion.thumb = res.data.data.thumb;
+          this.promotion.name = res.data.data.name;
+          this.promotion.code = res.data.data.code;
+          this.promotion.description = res.data.data.description;
+          this.promotion.rollover = res.data.data.rollover;
+          this.promotion.limit = res.data.data.limit;
+          this.promotion.percent = res.data.data.percent;
+        })
+        .catch(err => {
+          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+        });
+    },
   },
 
 };
