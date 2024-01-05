@@ -12,9 +12,9 @@
               <form @submit.prevent="login">
 
                 <div class="mb-3">
-                  <label for="username" class="form-label text-white-50">Email</label>
+                  <label for="username" class="form-label text-white-50">Email ou Usuário</label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     :class="{'is-invalid' : error.email}"
                     id="email"
@@ -94,14 +94,20 @@ export default {
         password: this.form.password,
       })
         .then(res => {
-          //localStorage.setItem('_token',res.data)
           this.$store.commit('auth/setToken', res.data)
           this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
+          (code.response.data.message==="Credentials not match")
+            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+            : null;
       });
     },
     setErrors(errors) {
