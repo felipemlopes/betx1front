@@ -458,9 +458,10 @@ export default {
   },
   methods: {
     async dologout(){
-      this.$cookies.remove('tokenauth')
+      await this.$cookies.remove('tokenauth')
       //this.$store.commit('auth/logout')
-      this.$router.go(0)
+      this.$router.push('/')
+      //this.$router.go(0)
     },
     login() {
       this.loading = true;
