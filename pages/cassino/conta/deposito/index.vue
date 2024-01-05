@@ -23,8 +23,8 @@
               <div class="col-md-5">
                 <div class="form-group text-white">
                   <label for="">Valor</label>
-                  <input type="text" id="amount" name="amount"class="form-control" v-mask="['######']" v-model="form.amount">
-                  <div class="invalid-feedback d-block" v-show="error.name">{{ error.amount }}</div>
+                  <input type="text" id="amount" name="amount"class="form-control" v-mask="['######']" v-model="form.amount" autocomplete="off">
+                  <div class="invalid-feedback d-block" v-show="error.amount">{{ error.amount }}</div>
                   <div class="text-info text-center mt-2">*Valor mínimo R$10.</div>
                 </div>
               </div>
@@ -113,7 +113,9 @@ export default {
           this.imageQRCode = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl='+res.data.data.code
         }).catch(err => {
         const code = err
-        this.setErrors(code.response.data.errors)
+        console.log(code.response.data.error.message)
+        this.error.amount = code.response.data.error.message
+        //this.setErrors(code.response.data.errors)
       });
     },
     copyPixCode() {
