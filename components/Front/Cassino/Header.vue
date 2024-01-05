@@ -6,7 +6,7 @@
         <ul class="list-unstyled topnav-menu float-end mb-0">
 
           <li class="dropdown notification-list px-2 py-2" v-show="!this.$cookies.get('tokenauth')">
-            <a class="nav-link right-bar-toggle fw-bold fs-5" v-on:click="openModalRegister">
+            <a class="nav-link right-bar-toggle fw-bold fs-5 pointer" v-on:click="openModalRegister">
               Registre-se
             </a>
           </li>
@@ -306,6 +306,20 @@
                       <div class="invalid-feedback" v-show="error.password">{{ error.password }}</div>
                     </div>
 
+                    <div class="mb-3">
+                      <label class="form-label text-white-50" for="password-input">Confmar senha</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        :class="{'is-invalid' : error.password_confirmation}"
+                        id="password"
+                        v-model="form.password_confirmation"
+                        :disabled="loading"
+                        placeholder=""
+                      />
+                      <div class="invalid-feedback" v-show="error.password_confirmation">{{ error.password_confirmation }}</div>
+                    </div>
+
                     <div class="mt-4 mb-4">
                       <button type="submit" class="btn btn-primary w-100" :disabled="loading">
                         <span v-show="loading">Enviando</span>
@@ -406,6 +420,7 @@ export default {
         document: null,
         email: null,
         password: null,
+        password_confirmation: null,
         phone: null,
         indicatedby: null
       },
@@ -415,6 +430,7 @@ export default {
         document: null,
         email: null,
         password: null,
+        password_confirmation: null,
         phone: null,
       },
     };
@@ -469,7 +485,7 @@ export default {
   methods: {
     async dologout(){
       this.$cookies.remove('tokenauth')
-      this.$store.commit('auth/logout')
+      //this.$store.commit('auth/logout')
       this.$router.go(0)
     },
     login() {
@@ -503,6 +519,7 @@ export default {
         document: this.form.document,
         email: this.form.email,
         password: this.form.password,
+        password_confirmation: this.form.password_confirmation,
         phone: this.form.phone,
       })
         .then(res => {
@@ -542,6 +559,7 @@ export default {
       this.error.document = errors.document ? errors.document[0] : null;
       this.error.email = errors.email ? errors.email[0] : null;
       this.error.password = errors.password ? errors.password[0] : null;
+      this.error.password_confirmation = errors.password_confirmation ? errors.password_confirmation[0] : null;
       this.error.phone = errors.phone ? errors.phone[0] : null;
     },
     clearErrors() {
@@ -550,6 +568,7 @@ export default {
       this.error.document = null;
       this.error.email = null;
       this.error.password = null;
+      this.error.password_confirmation = null;
       this.error.phone = null;
     },
     toggleSidebar() {

@@ -25,10 +25,13 @@
               <NuxtLink :to="{ name:'cassino-promocoes-id', params:{id:promotion.id}  }" class="btn btn-primary btn-block mx-2 fw-bold fs-5">
                 Bônus de até R${{promotion.limit}}
               </NuxtLink>
-
             </li>
 
-            <li class="menu-title mt-2 text-white text-uppercase fw-bold fs-5">Cassino</li>
+            <li class="menu-title mt-2 text-white text-uppercase fw-bold fs-5 pointer" style="pointer-events: auto;">
+              <NuxtLink :to="{ name:'cassino' }" class="text-white pointer">
+                <span class="text-white"> Cassino </span>
+              </NuxtLink>
+            </li>
 
             <li v-for="(item, index) in this.games">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }">
