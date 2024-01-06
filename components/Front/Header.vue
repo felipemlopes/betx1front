@@ -161,9 +161,9 @@
                     </div>
 
                     <div class="text-center">
-                      <router-link :to="{ name: 'esquecisenha'}" class="text-white">
+                      <a class="pointer text-white" v-on:click="esquecisenha">
                         Esqueci a senha
-                      </router-link>
+                      </a>
                     </div>
                   </form>
                 </div>
@@ -457,7 +457,13 @@ export default {
     this.getUser()
   },
   methods: {
+    esquecisenha(){
+      this.modallogin = false
+      this.$router.push('/auth/esqueci/senha')
+    },
     async dologout(){
+      this.user_id = null
+      this.username = null
       await this.$cookies.remove('tokenauth')
       //this.$store.commit('auth/logout')
       this.$router.push('/')
@@ -487,7 +493,8 @@ export default {
 
         });
     },
-    register() {
+    async register() {
+      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
       this.loading = true;
       this.$axios.post('/laravel/api/register', {
         name: this.form.name,

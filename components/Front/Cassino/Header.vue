@@ -185,11 +185,9 @@
                       </button>
                     </div>
 
-                    <div class="text-center">
-                      <router-link :to="{ name: 'esquecisenha'}" class="text-white">
-                        Esqueci a senha
-                      </router-link>
-                    </div>
+                    <a class="pointer text-white" v-on:click="esquecisenha">
+                      Esqueci a senha
+                    </a>
                   </form>
                 </div>
 
@@ -483,7 +481,13 @@ export default {
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
   },
   methods: {
+    esquecisenha(){
+      this.modallogin = false
+      this.$router.push('/auth/esqueci/senha')
+    },
     async dologout(){
+      this.user_id = null
+      this.username = null
       await this.$cookies.remove('tokenauth')
       //this.$store.commit('auth/logout')
       this.$router.push('/')
@@ -512,7 +516,8 @@ export default {
             : null;
       });
     },
-    register() {
+    async register() {
+      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
       this.loading = true;
       this.$axios.post('/laravel/api/register', {
         name: this.form.name,
@@ -524,6 +529,8 @@ export default {
         phone: this.form.phone,
       })
         .then(res => {
+          this.$toast.success('Conta criada com sucesso!',{duration:800})
+          this.$router.push('/login')
           this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
@@ -532,7 +539,7 @@ export default {
               this.$store.commit('auth/setToken', res.data)
               this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
               this.$toast.success('Logado com sucesso!',{duration:600})
-              this.$router.go(0)
+              //this.$router.go(0)
             }).catch(err => {
               const code = err
               console.log(code.response.data)

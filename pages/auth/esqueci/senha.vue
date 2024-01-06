@@ -6,13 +6,13 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h1 class="text-center text-wite pb-2 mb-2 fs-3">Faça login em sua conta</h1>
+            <h1 class="text-center text-wite pb-2 mb-2 fs-3">Esqueci Senha</h1>
 
             <div class="form">
-              <form @submit.prevent="login">
+              <form @submit.prevent="sendResetLink">
 
                 <div class="mb-3">
-                  <label for="username" class="form-label text-white-50">Email ou Usuário</label>
+                  <label for="username" class="form-label text-white-50">Email</label>
                   <input
                     type="text"
                     class="form-control"
@@ -26,30 +26,13 @@
                   <div class="invalid-feedback" v-show="error.email">{{ error.email }}</div>
                 </div>
 
-                <div class="mb-3">
-                  <label class="form-label text-white-50" for="password-input">Senha</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    :class="{'is-invalid' : error.password}"
-                    id="password"
-                    v-model="form.password"
-                    :disabled="loading"
-                    placeholder=""
-                  />
-                  <div class="invalid-feedback" v-show="error.password">{{ error.password }}</div>
-                </div>
-
                 <div class="mt-4 mb-4">
                   <button type="submit" class="btn btn-primary w-100" :disabled="loading">
-                    <span v-show="loading">Entrando</span>
-                    <span v-show="!loading">Entrar</span>
+                    <span v-show="loading">Enviando</span>
+                    <span v-show="!loading">Enviar</span>
                   </button>
                 </div>
 
-                <a class="pointer text-white" v-on:click="esquecisenha">
-                  Esqueci a senha
-                </a>
               </form>
             </div>
 
@@ -73,11 +56,9 @@ export default {
       loading: false,
       form: {
         email: null,
-        password: null
       },
       error: {
         email: null,
-        password: null
       },
     }
   },
@@ -85,19 +66,13 @@ export default {
     this.$axios.$get("/laravel/sanctum/csrf-cookie");
   },
   methods: {
-    esquecisenha(){
-      this.$router.push('/auth/esqueci/senha')
-    },
-    login() {
+    sendResetLink() {
       this.loading = true;
-      this.$axios.post('/laravel/api/login', {
+      this.$axios.post('/laravel/api/forgotpassword', {
         email: this.form.email,
-        password: this.form.password,
       })
         .then(res => {
-          this.$store.commit('auth/setToken', res.data)
-          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
-          this.$toast.success('Logado com sucesso!',{duration:600})
+          this.$toast.success('Email enviado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {
           const code = err
@@ -113,11 +88,9 @@ export default {
     },
     setErrors(errors) {
       this.error.email = errors.email ? errors.email[0] : null;
-      this.error.password = errors.password ? errors.password[0] : null;
     },
     clearErrors() {
       this.error.email = null;
-      this.error.password = null;
     }
   }
 }
