@@ -79,7 +79,7 @@ export default {
     baseURL: '/laravel',
     //baseURL: "http://cassino.fmlsoftware.com.br",
     credentials: true,
-    proxy: false,
+    proxy: true,
   },
 
   proxy: {
