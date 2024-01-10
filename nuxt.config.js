@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'apostacassinofront',
+    title: 'JogosBr',
     htmlAttrs: {
       lang: 'pt-br'
     },
@@ -76,14 +76,15 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/laravel',
+    //baseURL: '/laravel',
+    baseURL: process.env.API_URL,
     credentials: true,
-    proxy: true,
+    proxy: false,
   },
 
   proxy: {
     '/laravel': {
-      target: process.env.API_URL || 'http://localhost:8000',
+      target: process.env.API_URL,
       pathRewrite: { '^/laravel': '' }
     }
   },
