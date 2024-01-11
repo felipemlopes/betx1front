@@ -84,7 +84,7 @@ export default {
 
   proxy: {
     '/laravel': {
-      target: "http://cassino.fmlsoftware.com.br",
+      target: "https://api.jogosbr.bet",
       pathRewrite: { '^/laravel': '' }
     }
   },
