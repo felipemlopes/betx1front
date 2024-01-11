@@ -84,7 +84,7 @@ export default {
 
   proxy: {
     '/laravel': {
-      target: "https://api.jogosbr.bet",
+      target: process.env.API_URL,
       pathRewrite: { '^/laravel': '' }
     }
   },
