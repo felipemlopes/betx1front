@@ -42,9 +42,6 @@
                     <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
                     Indique Um Amigo
                   </a>
-                  <NuxtLink :to="{ name:'cassino-conta-indique'}" >
-
-                  </NuxtLink>
                   <NuxtLink :to="{ name:'cassino-conta-transacoes'}" class="dropdown-item">
                     <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
                     Transações
@@ -451,7 +448,7 @@ export default {
     },
   },
   mounted() {
-    this.$axios.$get("/laravel/sanctum/csrf-cookie");
+    this.$axios.$get("/sanctum/csrf-cookie");
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
     this.link_indication = window.location.host+"?ref="
     this.getUser()
@@ -471,7 +468,7 @@ export default {
     },
     login() {
       this.loading = true;
-      this.$axios.post('/laravel/api/login', {
+      this.$axios.post('/api/login', {
         email: this.form.email,
         password: this.form.password,
       })
@@ -494,9 +491,9 @@ export default {
         });
     },
     async register() {
-      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
+      await this.$axios.$get("/sanctum/csrf-cookie");
       this.loading = true;
-      this.$axios.post('/laravel/api/register', {
+      this.$axios.post('/api/register', {
         name: this.form.name,
         username: this.form.username,
         document: this.form.document,
@@ -506,7 +503,7 @@ export default {
         phone: this.form.phone,
       })
         .then(res => {
-          this.$axios.post('/laravel/api/login', {
+          this.$axios.post('/api/login', {
             email: this.form.email,
             password: this.form.password,
             })
@@ -587,7 +584,7 @@ export default {
     },
     async getUser() {
       if(this.$cookies.get("tokenauth")){
-        this.$axios.get("/laravel/api/user/")
+        this.$axios.get("/api/user/")
           .then(res => {
             this.user_id = res.data.data.id;
             this.username = res.data.data.username;

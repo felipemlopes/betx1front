@@ -35,7 +35,9 @@
               <div class="card-body p-1">
                 <div class="d-flex justify-content-between">
                   <p class="fw-bold fs-3 text-black">Apostas Esportivas</p>
-                  <a href="" class="btn btn-secondary" style="height: fit-content;background-color: #000000;" disabled>Em Breve</a>
+                  <NuxtLink :to="{ name:'apostas'}" class="btn btn-secondary" style="height: fit-content;background-color: #000000;">
+                    Visitar Apostas Esportivas
+                  </NuxtLink>
                 </div>
               </div>
             </div>
@@ -68,7 +70,7 @@ export default {
   },
   methods: {
     async getPromotion() {
-      this.$axios.get("/laravel/api/promotion/")
+      this.$axios.get("/api/promotion/")
         .then(res => {
           this.promotion.thumb = res.data.data.thumb;
         })

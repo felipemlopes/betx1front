@@ -102,10 +102,10 @@
               </NuxtLink>
             </li>
             <li class="list-inline-item py-3">
-              <a  class="text-white" style="font-size: 18px;">
+              <NuxtLink :to="{ name:'apostas' }" class="text-white" style="font-size: 18px;">
                 <fa-icon :icon="faFutbol" class="pr-5" />
                 Esportes
-              </a>
+              </NuxtLink>
             </li>
           </ul>
 
