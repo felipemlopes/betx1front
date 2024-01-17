@@ -44,7 +44,7 @@ export default {
   methods: {
     async resendLink() {
       this.loading = true
-      this.$axios.get("/laravel/api/email/reenviar/")
+      this.$axios.get("/laravel/api/email/reenviar")
         .then(res => {
           this.$toast.success("Email enviado!",{duration:600})
         })
