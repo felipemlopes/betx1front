@@ -5,7 +5,7 @@
         <div class="row mt-3 mb-5">
           <div class="col-md-4">
             <NuxtLink to="/" class="logo">
-              <img alt="LOGO" src="">
+              <img alt="LOGO" src="~assets/images/logo.jpg" style="height: 75px;">
             </NuxtLink>
           </div>
           <div class="col-md-4">
@@ -36,7 +36,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
-            Copyright © 2023 - nomebet.com Todos os direitos reservados.
+            Copyright © 2024 - Jogosbr Todos os direitos reservados.
           </div>
         </div>
       </div>
@@ -55,7 +55,8 @@ export default {
   computed: {
     isLogged(){
       //return this.$store.state.auth.loggedIn
-    }
+    },
+
   },
   mounted() {
     //this.$auth.fetchUser()

@@ -43,9 +43,7 @@
                     <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
                     Indique Um Amigo
                   </a>
-                  <NuxtLink :to="{ name:'cassino-conta-indique'}" >
 
-                  </NuxtLink>
                   <NuxtLink :to="{ name:'cassino-conta-transacoes'}" class="dropdown-item">
                     <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
                     Transações
@@ -102,10 +100,14 @@
               </NuxtLink>
             </li>
             <li class="list-inline-item py-3">
-              <NuxtLink :to="{ name:'apostas' }" class="text-white" style="font-size: 18px;">
+              <a href="" class="text-white" style="font-size: 18px;">
                 <fa-icon :icon="faFutbol" class="pr-5" />
                 Esportes
-              </NuxtLink>
+              </a>
+              <!--<NuxtLink :to="{ name:'apostas'  }" class="text-white" style="font-size: 18px;">
+                <fa-icon :icon="faFutbol" class="pr-5" />
+                Esportes
+              </NuxtLink>-->
             </li>
           </ul>
 
@@ -612,7 +614,7 @@ export default {
     },
     async getUser() {
       if(this.$cookies.get("tokenauth")){
-        this.$axios.get("/laravel/api/user/")
+        this.$axios.get("/laravel/api/user")
           .then(res => {
             this.user_id = res.data.data.id;
             this.username = res.data.data.username;

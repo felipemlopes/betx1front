@@ -161,3 +161,52 @@
     display: flex;
   }
 }
+
+
+
+.link-match{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.link-match a{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.link-match:hover{
+  background-color: #0f515e;
+  cursor: pointer;
+}
+
+.link-competitors{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.link-competitors a{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.link-competitors:hover{
+  color: #ffffff;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.more-options{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.more-options a{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.more-options:hover{
+  color: #ffffff;
+  cursor: pointer;
+  background-color: transparent;
+}

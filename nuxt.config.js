@@ -1,5 +1,4 @@
 export default {
-  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'JogosBr',
@@ -49,7 +48,7 @@ export default {
     '@nuxtjs/toast',
     'cookie-universal-nuxt',
     'nuxt-sweetalert2',
-    //'nuxt-mobile'
+    'nuxt-mobile'
   ],
 
   toast: {
@@ -77,10 +76,10 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    //baseURL: '/laravel',
-    baseURL: process.env.API_URL,
+    baseURL: '/laravel',
+    //baseURL: "http://cassino.fmlsoftware.com.br",
     credentials: true,
-    proxy: false,
+    proxy: true,
   },
 
   proxy: {

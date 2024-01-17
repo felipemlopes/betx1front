@@ -94,10 +94,14 @@
               </NuxtLink>
             </li>
             <li class="list-inline-item py-3">
-              <a  class="text-white" style="font-size: 18px;">
+              <a href="" class="text-white" style="font-size: 18px;">
                 <fa-icon :icon="faFutbol" class="pr-5" />
                 Esportes
               </a>
+              <!--<NuxtLink :to="{ name:'apostas'  }" class="text-white" style="font-size: 18px;">
+                <fa-icon :icon="faFutbol" class="pr-5" />
+                Esportes
+              </NuxtLink>-->
             </li>
           </ul>
 
@@ -448,7 +452,7 @@ export default {
     },
   },
   mounted() {
-    this.$axios.$get("/sanctum/csrf-cookie");
+    this.$axios.$get("/laravel/sanctum/csrf-cookie");
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
     this.link_indication = window.location.host+"?ref="
     this.getUser()
@@ -468,7 +472,7 @@ export default {
     },
     login() {
       this.loading = true;
-      this.$axios.post('/api/login', {
+      this.$axios.post('/laravel/api/login', {
         email: this.form.email,
         password: this.form.password,
       })
@@ -491,9 +495,9 @@ export default {
         });
     },
     async register() {
-      await this.$axios.$get("/sanctum/csrf-cookie");
+      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
       this.loading = true;
-      this.$axios.post('/api/register', {
+      this.$axios.post('/laravel/api/register', {
         name: this.form.name,
         username: this.form.username,
         document: this.form.document,
@@ -503,7 +507,7 @@ export default {
         phone: this.form.phone,
       })
         .then(res => {
-          this.$axios.post('/api/login', {
+          this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
             })
@@ -584,7 +588,7 @@ export default {
     },
     async getUser() {
       if(this.$cookies.get("tokenauth")){
-        this.$axios.get("/api/user/")
+        this.$axios.get("/laravel/api/user")
           .then(res => {
             this.user_id = res.data.data.id;
             this.username = res.data.data.username;

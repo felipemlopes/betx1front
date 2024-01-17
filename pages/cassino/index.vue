@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     async getPromotion() {
-      this.$axios.get("/laravel/api/promotion/")
+      this.$axios.get("/laravel/api/promotion")
         .then(res => {
           this.promotion = res.data.data.thumb;
         })
