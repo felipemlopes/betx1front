@@ -10,10 +10,10 @@
                 <h4 class="fw-bold text-white">Verificação do email</h4>
 
                 <p class="text-white-50">
-                  Antes de proceder, verifique o seu email. Enviamos um email com um link de verificação, se você não recebeu o email solicite novamente.
+                  Para sua segurança pedimos para confirmar o endereço de e-mail cadastrado (E necessário confirmar para poder usar a nossa plataforma!)! Clique no botão abaixo "Solicitar E-mail" em seguida vá na sua caixa de entrada (caso não esteja, vá à caixa de spam/lixo eletrônico) e confirme o e-mail para prosseguir e usar nossa plataforma!
                 </p>
 
-                <a class="btn btn-primary" v-on:click="resendLink">Solicitar novamente</a>
+                <a class="btn btn-primary" v-on:click="resendLink">Solicitar E-mail</a>
               </div>
             </div>
 

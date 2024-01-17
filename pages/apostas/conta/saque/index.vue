@@ -107,7 +107,7 @@ export default {
     },
     async saque() {
       this.loading = true;
-      this.$axios.post('/laravel/api/deposit', {
+      this.$axios.post('/laravel/api/withdrawals', {
         amount: this.form.amount,
         pixkeytype: this.form.pixkeytype,
         pixkey: this.form.pixkey,

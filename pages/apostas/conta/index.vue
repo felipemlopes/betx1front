@@ -178,7 +178,7 @@ export default {
       });
     },
     async getUser() {
-      this.$axios.get("/laravel/api/user/")
+      this.$axios.get("/laravel/api/user")
         .then(res => {
           this.form.name = res.data.data.name;
           this.form.document = res.data.data.document;
