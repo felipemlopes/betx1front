@@ -127,7 +127,7 @@ export default {
 
   methods: {
     async send() {
-      this.$axios.post("/laravel/api/account/profile/password", this.form)
+      await this.$axios.post("/laravel/api/account/profile/password", this.form)
         .then(res => {
 
           this.loading = false

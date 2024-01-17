@@ -94,7 +94,7 @@ export default {
       this.form.amount = value
     },
     async getSettings() {
-      this.$axios.get("/laravel/api/settings")
+      await this.$axios.get("/laravel/api/settings")
         .then(res => {
           this.min_amount = res.data.data.min_amount;
         })
@@ -104,7 +104,7 @@ export default {
     },
     async deposit() {
       this.loading = true;
-      this.$axios.post('/laravel/api/deposit', {
+      await this.$axios.post('/laravel/api/deposit', {
         amount: this.form.amount,
       })
         .then(res => {

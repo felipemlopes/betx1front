@@ -169,7 +169,7 @@ export default {
 
   methods: {
     async getTransactions() {
-      this.$axios.get("/laravel/api/account/transactions/withdrawals?page="+this.page)
+      await this.$axios.get("/laravel/api/account/transactions/withdrawals?page="+this.page)
         .then(res => {
           this.transactions = res.data.data
           //this.page = res.data.pagination.currentPage;

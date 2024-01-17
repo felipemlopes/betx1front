@@ -97,7 +97,7 @@ export default {
       this.error.pixkey = null;
     },
     async getSettings() {
-      this.$axios.get("/laravel/api/settings")
+      await this.$axios.get("/laravel/api/settings")
         .then(res => {
           this.withdraw_min_amount = res.data.data.withdraw_min_amount;
         })
@@ -107,7 +107,7 @@ export default {
     },
     async saque() {
       this.loading = true;
-      this.$axios.post('/laravel/api/withdrawals', {
+      await this.$axios.post('/laravel/api/withdrawals', {
         amount: this.form.amount,
         pixkeytype: this.form.pixkeytype,
         pixkey: this.form.pixkey,

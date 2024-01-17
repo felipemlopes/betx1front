@@ -41,7 +41,7 @@ export default {
       this.$store.commit('user/setTotalbalance',JSON.parse(event.data).balance)
     },
     async getGame() {
-      this.$axios.get("/laravel/api/cassino/games/"+this.$route.params.slug)
+      await this.$axios.get("/laravel/api/cassino/games/"+this.$route.params.slug)
         .then(res => {
           this.id = res.data.data.id;
           this.name = res.data.data.name;
@@ -54,7 +54,7 @@ export default {
         });
     },
     async getIframe() {
-      this.$axios.get("/laravel/api/cassino/games/"+this.$route.params.slug+"/token")
+      await this.$axios.get("/laravel/api/cassino/games/"+this.$route.params.slug+"/token")
         .then(res => {
           this.iframe = res.data.data.IframeUrl;
           this.token = res.data.data.name;

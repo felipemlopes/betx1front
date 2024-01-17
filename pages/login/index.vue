@@ -88,9 +88,9 @@ export default {
     esquecisenha(){
       this.$router.push('/auth/esqueci/senha')
     },
-    login() {
+    async login() {
       this.loading = true;
-      this.$axios.post('/laravel/api/login', {
+      await this.$axios.post('/laravel/api/login', {
         email: this.form.email,
         password: this.form.password,
       })

@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async getPage() {
-      this.$axios.get("/laravel/api/pages/"+this.$route.params.slug)
+      await this.$axios.get("/laravel/api/pages/"+this.$route.params.slug)
         .then(res => {
           this.title = res.data.data.title;
           this.slug = res.data.data.slug;

@@ -66,9 +66,9 @@ export default {
     this.$axios.$get("/laravel/sanctum/csrf-cookie");
   },
   methods: {
-    sendResetLink() {
+    async sendResetLink() {
       this.loading = true;
-      this.$axios.post('/laravel/api/forgotpassword', {
+      await this.$axios.post('/laravel/api/forgotpassword', {
         email: this.form.email,
       })
         .then(res => {

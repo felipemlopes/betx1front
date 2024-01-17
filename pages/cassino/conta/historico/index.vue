@@ -143,7 +143,7 @@ export default {
 
   methods: {
     async getBets() {
-      this.$axios.get("/laravel/api/account/bets?page="+this.page)
+      await this.$axios.get("/laravel/api/account/bets?page="+this.page)
         .then(res => {
           this.bets = res.data.data
           this.pagination.count = res.data.pagination.count;

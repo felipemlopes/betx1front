@@ -18,7 +18,6 @@ export default function ({ $axios, redirect, $store, app }) {
     if (code === 400) {
       redirect('/400')
     }else if(code === 422){
-
     }else if(code === 409){
       redirect('/email/verificar')
     }else if(code === 401){

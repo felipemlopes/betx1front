@@ -111,9 +111,9 @@ export default {
     this.form.token = this.$route.query.token
   },
   methods: {
-    esqueciSenha() {
+    async esqueciSenha() {
       this.loading = true;
-      this.$axios.post('/laravel/api/redefinir/senha', {
+      await this.$axios.post('/laravel/api/redefinir/senha', {
         token: this.form.token,
         email: this.form.email,
         password: this.form.password,

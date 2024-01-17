@@ -154,7 +154,7 @@ export default {
 
   methods: {
     async getTransactions() {
-      this.$axios.get("/laravel/api/account/transactions/deposits")
+      await this.$axios.get("/laravel/api/account/transactions/deposits")
         .then(res => {
           this.transactions = res.data.data
           this.pagination.count = res.data.pagination.count;

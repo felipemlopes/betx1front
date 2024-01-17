@@ -161,9 +161,9 @@ export default {
     this.$axios.$get("/laravel/sanctum/csrf-cookie");
   },
   methods: {
-    send() {
+    async send() {
       this.loading = true;
-      this.$axios.post('/laravel/api/account/profile/info', {
+      await this.$axios.post('/laravel/api/account/profile/info', {
         email: this.form.email,
         document: this.form.document,
         name: this.form.name,
@@ -178,7 +178,7 @@ export default {
       });
     },
     async getUser() {
-      this.$axios.get("/laravel/api/user")
+      await this.$axios.get("/laravel/api/user")
         .then(res => {
           this.form.name = res.data.data.name;
           this.form.document = res.data.data.document;
