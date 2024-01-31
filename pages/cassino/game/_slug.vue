@@ -2,10 +2,12 @@
 
   <div class="">
     <div class="embed-responsive embed-responsive-16by9">
-      <iframe
-        class="embed-responsive-item"
+      <iframe class="embed-responsive-item"
+        id="slot-iframe"
         :src="iframe"
-      ></iframe>
+        frameborder="0"
+        allowfullscreen
+        allow="autoplay"></iframe>
     </div>
 
   </div>
@@ -35,10 +37,16 @@ export default {
     this.getGame();
     this.getIframe();
     window.addEventListener('message', this.onReceiveMessage)
+    this.$store.dispatch('user/fetchBalance')
   },
   methods: {
     onReceiveMessage(event) {
-      this.$store.commit('user/setTotalbalance',JSON.parse(event.data).balance)
+      try {
+        if(JSON.parse(event.data).balance){
+          this.$store.commit('user/setTotalbalance',JSON.parse(event.data).balance)
+        }
+      } catch(err) {
+      }
     },
     async getGame() {
       await this.$axios.get("/laravel/api/cassino/games/"+this.$route.params.slug)

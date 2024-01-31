@@ -8,11 +8,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Cassino Online e Apostas Desportiva Online' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ],
     bodyAttrs: {
       "data-sidebar-color":"dark"
@@ -28,7 +28,9 @@ export default {
     '~/plugins/axios',
     '~/plugins/api',
     "@/plugins/mask",
-    { src: "@/plugins/vClickOutside", ssr: false }
+    { src: "@/plugins/vClickOutside", ssr: false },
+    { src: "@/plugins/vuehorizontal", ssr: false },
+    { src: "@/plugins/select2", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,8 +50,10 @@ export default {
     '@nuxtjs/toast',
     'cookie-universal-nuxt',
     'nuxt-sweetalert2',
-    'nuxt-mobile'
+    'nuxt-mobile',
+    'nuxt-vue-multiselect'
   ],
+
 
   toast: {
     position: 'top-center',

@@ -95,7 +95,7 @@ export default {
         password: this.form.password,
       })
         .then(res => {
-          this.$store.commit('auth/setToken', res.data)
+          //this.$store.commit('auth/setToken', res.data)
           this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)

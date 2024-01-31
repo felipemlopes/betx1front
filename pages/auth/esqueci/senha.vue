@@ -47,9 +47,7 @@
 
 <script>
 export default {
-  name: 'index',
   layout: 'default',
-
   middleware: ['visitante'],
   data() {
     return {
@@ -73,7 +71,7 @@ export default {
       })
         .then(res => {
           this.$toast.success('Email enviado com sucesso!',{duration:600})
-          this.$router.go(0)
+          this.$router.push("/auth/redefinir/senha")
         }).catch(err => {
           const code = err
           console.log(code.response.data)

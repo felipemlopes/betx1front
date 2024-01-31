@@ -2,16 +2,39 @@
 
   <div class="">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12 d-flex justify-content-center" v-show="promotion.thumb!==null" style="">
-            <img :src="promotion.thumb" style="width: auto; height:200px;">
+
+        <div class="carossel">
+          <div class="mt-1" @mousedown.left="onMouseDown">
+            <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true">
+              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
+                <nuxt-link to="/">
+                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">>
+                </nuxt-link>
+              </div>
+
+              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
+                <nuxt-link to="/">
+                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">
+                </nuxt-link>
+              </div>
+
+            </vue-horizontal>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-12 mt-5">
             <h1 class="text-warning">
-              Bem-vindo ao <strong class="text-white">Nome!</strong>
+              Bem-vindo ao <strong class="text-white">JogosBr!</strong>
             </h1>
           </div>
         </div>
+
+        <!--<div class="row">
+          <div class="col-md-12 d-flex justify-content-center" v-show="promotion.thumb!==null" style="">
+            <img :src="promotion.thumb" style="width: auto; height:200px;">
+          </div>
+        </div>-->
 
         <div class="row mt-3">
           <div class="col-md-6">
@@ -59,6 +82,9 @@ export default {
     return {
       promotion: {
         thumb: null,
+        left: 0,
+        originX: 0,
+        originLeft: 0,
       },
 
     };
@@ -69,7 +95,11 @@ export default {
     },
   },
   mounted() {
+    this.$refs.horizontal.scrollToIndex(1);
     this.getPromotion()
+  },
+  destroyed() {
+    this.onMouseUp()
   },
   methods: {
     async getPromotion() {
@@ -81,6 +111,28 @@ export default {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
         });
     },
+    onScroll({left}) {
+      this.left = left
+    },
+    onMouseDown(e) {
+      this.originX = e.pageX
+      this.originLeft = this.left
+
+      window.addEventListener("mouseup", this.onMouseUp);
+      window.addEventListener("mousemove", this.onMouseMove);
+    },
+    onMouseUp() {
+      window.removeEventListener("mouseup", this.onMouseUp);
+      window.removeEventListener("mousemove", this.onMouseMove);
+    },
+    onMouseMove(e) {
+      const offset = e.pageX - this.originX
+      const left = this.originLeft - offset
+      this.$refs.horizontal.scrollToLeft(left, 'auto')
+    }
   },
 }
 </script>
+<style scoped>
+
+</style>

@@ -210,3 +210,60 @@
   cursor: pointer;
   background-color: transparent;
 }
+
+
+.horizontal {
+  cursor: move;
+  user-select: none;
+}
+.horizontal > .v-hl-btn svg {
+  width: 40px;
+  height: 40px;
+  margin: 6px;
+  padding: 6px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background: #fff;
+  color: #000;
+  fill: currentColor;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+}
+.carossel{
+  display: block;
+}
+.horizontal > .v-hl-btn-next {
+  transform: translateX(96%) !important;
+}
+
+.horizontal > .v-hl-btn-prev {
+  transform: translateX(0%) !important;
+  top: 0;
+}
+.horizontal > .v-hl-btn-next svg {
+  margin: 0;
+  padding: 4px;
+  height: 30px;
+  width: 30px;
+}
+.horizontal > .v-hl-btn-prev svg {
+  margin: 0;
+  padding: 4px;
+  height: 30px;
+  width: 30px;
+}
+
+.content-page-internal {
+  margin-left: 250px;
+  overflow: hidden;
+  padding: 0 4% 65px 4%;
+  min-height: 80vh;
+  margin-top: 70px;
+}
+
+.box-provider{
+  border-radius: 15px;
+}
+
+.recommended-game{
+  border-radius: 15px;
+}

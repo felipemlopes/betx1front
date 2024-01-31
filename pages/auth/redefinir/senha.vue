@@ -11,16 +11,7 @@
             <div class="form">
               <form @submit.prevent="esqueciSenha">
 
-                <input
-                  type="hidden"
-                  class="form-control"
-                  :class="{'is-invalid' : error.token}"
-                  id="email"
-                  v-model="form.token"
-                  autocomplete="off"
-                  :disabled="loading"
-                  placeholder=""
-                />
+
                 <div class="mb-3">
                   <label for="username" class="form-label text-white-50">Email</label>
                   <input
@@ -35,7 +26,20 @@
                   />
                   <div class="invalid-feedback" v-show="error.email">{{ error.email }}</div>
                 </div>
-
+                <div class="mb-3">
+                  <label for="username" class="form-label text-white-50">Código</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :class="{'is-invalid' : error.token}"
+                    id="email"
+                    v-model="form.token"
+                    autocomplete="off"
+                    :disabled="loading"
+                    placeholder=""
+                  />
+                  <div class="invalid-feedback" v-show="error.token">{{ error.token }}</div>
+                </div>
                 <div class="mb-3">
                   <label class="form-label text-white-50" for="password-input">Senha</label>
                   <input
@@ -85,9 +89,7 @@
 
 <script>
 export default {
-  name: 'index',
   layout: 'default',
-
   middleware: ['visitante'],
   data() {
     return {
@@ -107,8 +109,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.$get("/laravel/sanctum/csrf-cookie");
-    this.form.token = this.$route.query.token
+    this.$axios.get("/laravel/sanctum/csrf-cookie");
   },
   methods: {
     async esqueciSenha() {
@@ -121,7 +122,9 @@ export default {
       })
         .then(res => {
           this.$toast.success('Senha redefinida com sucesso!',{duration:600})
+          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
           this.$router.go(0)
+          //this.$router.push('/login')
         }).catch(err => {
           const code = err
           console.log(code.response.data)

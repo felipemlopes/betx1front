@@ -1,6 +1,7 @@
 <template>
     <div>
 
+      <LoadSpinner v-if="showHideSpinner" />
       <div class="" id="wrapper">
         <FrontHeader />
         <!--<FrontCassinoSidebar />-->
@@ -29,10 +30,15 @@ import '~/assets/css/custom.css'
 export default {
   data() {
     return {
-
+      showHideSpinner: true
     }
   },
+  beforeCreate() {
+    this.showHideSpinner = true;
+  },
   mounted() {
+    this.$cookies.modal = true
+    this.showHideSpinner = false;
     this.$store.dispatch('user/fetchBalance')
   },
 

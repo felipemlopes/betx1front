@@ -521,7 +521,7 @@ export default {
     async register() {
       await this.$axios.$get("/laravel/sanctum/csrf-cookie");
       this.loading = true;
-      this.$axios.post('/laravel/api/register', {
+      await this.$axios.post('/laravel/api/register', {
         name: this.form.name,
         username: this.form.username,
         document: this.form.document,
@@ -532,16 +532,15 @@ export default {
       })
         .then(res => {
           this.$toast.success('Conta criada com sucesso!',{duration:800})
-          this.$router.push('/login')
           this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
           })
             .then(res => {
-              this.$store.commit('auth/setToken', res.data)
+              //this.$store.commit('auth/setToken', res.data)
               this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
               this.$toast.success('Logado com sucesso!',{duration:600})
-              //this.$router.go(0)
+              this.$router.go(0)
             }).catch(err => {
               const code = err
               console.log(code.response.data)

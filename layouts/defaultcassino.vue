@@ -1,12 +1,12 @@
 <template>
 
     <div>
-
+      <LoadSpinner v-if="showHideSpinner" />
       <div class="" id="wrapper">
         <FrontCassinoHeader />
         <FrontCassinoSidebar />
 
-        <div class="content-page">
+        <div class="content-page-internal">
 
           <Nuxt />
 
@@ -26,10 +26,19 @@ import '~/assets/css/app-dark.min.css'
 import '~/assets/css/custom.css'
 
 export default {
-  mounted() {
-    this.$store.dispatch('games/fetchGames')
-    this.$store.dispatch('sidebar/fetchDevice')
-    this.$store.dispatch('user/fetchBalance')
+  data() {
+    return {
+      showHideSpinner: true
+    }
+  },
+  beforeCreate() {
+    this.showHideSpinner = true;
+  },
+  async mounted() {
+    this.showHideSpinner = false;
+    await this.$store.dispatch('games/fetchGames')
+    await this.$store.dispatch('sidebar/fetchDevice')
+    await this.$store.dispatch('user/fetchBalance')
   },
 };
 </script>

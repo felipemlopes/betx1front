@@ -1,7 +1,7 @@
 <template>
 
     <div>
-
+      <LoadSpinner v-if="showHideSpinner" />
       <div class="" id="wrapper">
         <FrontApostasHeader />
         <FrontApostasSidebar />
@@ -26,8 +26,16 @@ import '~/assets/css/app-dark.min.css'
 import '~/assets/css/custom.css'
 
 export default {
+  data() {
+    return {
+      showHideSpinner: true
+    }
+  },
+  beforeCreate() {
+    this.showHideSpinner = true;
+  },
   mounted() {
-
+    this.showHideSpinner = false;
   },
 };
 </script>
