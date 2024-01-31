@@ -199,18 +199,51 @@
     </div>
 
     <div class="modal fade show" :class="{'d-block': modalregister }" tabindex="-1" aria-modal="true" >
-      <div class="modal-dialog" >
+      <div class="modal-dialog modal-dialog-scrollable" >
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-on:click="closeModalRegister"></button>
           </div>
           <div class="modal-body">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body" style="height: 60vh;">
                 <h1 class="text-center text-wite pb-2 mb-2 fs-3">Cadastre-se</h1>
 
                 <div class="form">
                   <form @submit.prevent="register">
+
+                    <div class="mb-3">
+                      <label for="document" class="form-label text-white-50">CPF</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :class="{'is-invalid' : error.document}"
+                        id="document"
+                        v-model="form.document"
+                        autocomplete="off"
+                        :disabled="loading"
+                        placeholder=""
+                        v-mask="['###.###.###-##']"
+                        v-on:change="consultcpf"
+                      />
+                      <div class="invalid-feedback" v-show="error.document">{{ error.document }}</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="document" class="form-label text-white-50">Data de nascimento</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :class="{'is-invalid' : error.birth}"
+                        id="birth"
+                        v-model="form.birth"
+                        autocomplete="off"
+                        disabled
+                        placeholder=""
+                        v-mask="['##/##/####']"
+                      />
+                      <div class="invalid-feedback" v-show="error.birth">{{ error.birth }}</div>
+                    </div>
 
                     <div class="mb-3">
                       <label for="name" class="form-label text-white-50">Nome</label>
@@ -221,7 +254,7 @@
                         id="name"
                         v-model="form.name"
                         autocomplete="off"
-                        :disabled="loading"
+                        disabled
                         placeholder=""
                       />
                       <div class="invalid-feedback" v-show="error.name">{{ error.name }}</div>
@@ -242,21 +275,6 @@
                       <div class="invalid-feedback" v-show="error.username">{{ error.username }}</div>
                     </div>
 
-                    <div class="mb-3">
-                      <label for="document" class="form-label text-white-50">CPF</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{'is-invalid' : error.document}"
-                        id="document"
-                        v-model="form.document"
-                        autocomplete="off"
-                        :disabled="loading"
-                        placeholder=""
-                        v-mask="['###.###.###-##']"
-                      />
-                      <div class="invalid-feedback" v-show="error.document">{{ error.document }}</div>
-                    </div>
                     <div class="form-group">
                       <label for="" class="form-label text-white-50">Telefone</label>
                       <input
@@ -418,7 +436,8 @@ export default {
         password: null,
         password_confirmation: null,
         phone: null,
-        indicatedby: null
+        indicatedby: null,
+        birth: null,
       },
       error: {
         name: null,
@@ -428,6 +447,7 @@ export default {
         password: null,
         password_confirmation: null,
         phone: null,
+        birth: null,
       },
     };
   },
@@ -491,6 +511,28 @@ export default {
       this.$router.push('/')
       //this.$router.go(0)
     },
+    async consultcpf() {
+      if(this.form.document.length===14){
+        this.loading = true;
+        await this.$axios.get('/laravel/api/consulta/cpf?cpf='+this.form.document).then(res => {
+          console.log(res.data)
+          this.form.name = res.data.nome;
+          this.form.birth = res.data.dtnasc;
+          this.loading = false;
+        }).catch(err => {
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
+          (code.response.data.message==="Credentials not match")
+            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+            : null;
+        });
+        this.loading = false;
+      }
+    },
     async login() {
       this.loading = true;
       await this.$axios.post('/laravel/api/login', {
@@ -525,19 +567,18 @@ export default {
         password: this.form.password,
         password_confirmation: this.form.password_confirmation,
         phone: this.form.phone,
+        birth: this.form.birth,
       })
         .then(res => {
-          this.$toast.success('Conta criada com sucesso!',{duration:800})
-          this.$router.push('/login')
           this.$axios.post('/laravel/api/login', {
             email: this.form.email,
             password: this.form.password,
           })
             .then(res => {
-              this.$store.commit('auth/setToken', res.data)
+              //this.$store.commit('auth/setToken', res.data)
               this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
               this.$toast.success('Logado com sucesso!',{duration:600})
-              //this.$router.go(0)
+              this.$router.go(0)
             }).catch(err => {
             const code = err
             console.log(code.response.data)
@@ -551,13 +592,13 @@ export default {
           });
 
         }).catch(err => {
-        const code = err
-        console.log(code.response.data)
-        this.loading = false;
-        (code.response.data.errors)
-          ? this.setErrors(code.response.data.errors)
-          : this.clearErrors();
-      });
+          const code = err
+          console.log(code.response.data)
+          this.loading = false;
+          (code.response.data.errors)
+            ? this.setErrors(code.response.data.errors)
+            : this.clearErrors();
+        });
     },
     setErrors(errors) {
       this.error.name = errors.name ? errors.name[0] : null;
@@ -567,6 +608,7 @@ export default {
       this.error.password = errors.password ? errors.password[0] : null;
       this.error.password_confirmation = errors.password_confirmation ? errors.password_confirmation[0] : null;
       this.error.phone = errors.phone ? errors.phone[0] : null;
+      this.error.birth = errors.birth ? errors.birth[0] : null;
     },
     clearErrors() {
       this.error.name = null;
@@ -576,6 +618,7 @@ export default {
       this.error.password = null;
       this.error.password_confirmation = null;
       this.error.phone = null;
+      this.error.birth = null;
     },
     toggleSidebar() {
       this.$store.commit('sidebar/toggleSidebaraposta')
