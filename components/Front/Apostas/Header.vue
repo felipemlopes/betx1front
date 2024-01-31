@@ -472,10 +472,10 @@ export default {
       return faDice
     },
   },
-  mounted() {
+  async mounted() {
     this.$axios.$get("/laravel/sanctum/csrf-cookie");
     this.link_indication = window.location.host+"?ref="
-    this.getUser()
+    await this.getUser()
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
   },
   methods: {
@@ -491,9 +491,9 @@ export default {
       this.$router.push('/')
       //this.$router.go(0)
     },
-    login() {
+    async login() {
       this.loading = true;
-      this.$axios.post('/laravel/api/login', {
+      await this.$axios.post('/laravel/api/login', {
         email: this.form.email,
         password: this.form.password,
       })
@@ -517,7 +517,7 @@ export default {
     async register() {
       await this.$axios.$get("/laravel/sanctum/csrf-cookie");
       this.loading = true;
-      this.$axios.post('/laravel/api/register', {
+      await this.$axios.post('/laravel/api/register', {
         name: this.form.name,
         username: this.form.username,
         document: this.form.document,
@@ -609,8 +609,8 @@ export default {
       this.$toast.success('Link Copiado!',{duration:600})
     },
     async getUser() {
-      if(this.$cookies.get("tokenauth")){
-        this.$axios.get("/laravel/api/user")
+      if(await this.$cookies.get("tokenauth")){
+        await this.$axios.get("/laravel/api/user")
           .then(res => {
             this.user_id = res.data.data.id;
             this.username = res.data.data.username;

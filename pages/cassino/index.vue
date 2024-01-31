@@ -26,6 +26,7 @@
       </div>
     </div>
 
+    <!--
     <div class="row pl-2 mt-0">
       <div class="col-md-12">
         <h4 class="text-white">Recomendados</h4>
@@ -50,6 +51,7 @@
         </div>
       </div>
     </div>
+    -->
 
     <FrontCassinoGameprovidersfeatured></FrontCassinoGameprovidersfeatured>
 
@@ -138,6 +140,7 @@ export default {
       promotion: null,
       crashgames: [],
       slotgames: [],
+      featuredgames: [],
       left: 0,
       originX: 0,
       originLeft: 0,
@@ -170,7 +173,7 @@ export default {
         });
     },
     async getCrashGames() {
-      await this.$axios.get("/laravel/api/cassino/crashgames?qtd=6")
+      await this.$axios.get("/laravel/api/cassino/crashgames?qtd=4")
         .then(res => {
           this.crashgames = res.data.data;
         })
@@ -179,16 +182,7 @@ export default {
         });
     },
     async getSlotGames() {
-      await this.$axios.get("/laravel/api/cassino/slotgames?qtd=6")
-        .then(res => {
-          this.slotgames = res.data.data;
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-        });
-    },
-    async getFeaturedGames() {
-      await this.$axios.get("/laravel/api/cassino/slotgames?qtd=6")
+      await this.$axios.get("/laravel/api/cassino/slotgames?qtd=4")
         .then(res => {
           this.slotgames = res.data.data;
         })

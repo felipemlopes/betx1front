@@ -4,7 +4,7 @@
     <div class="row pl-2 mt-5">
       <div class="col-md-12 d-inline-flex">
         <input type="text" class="form-control" v-model="searchValue" placeholder="Pesquise por um jogo ...">
-        <multiselect
+        <!--<multiselect
           v-model="categoryselected"
           :options="categories"
           :preserve-search="true"
@@ -18,7 +18,7 @@
           selectLabel="Selecione"
           selectedLabel="Selecionado"
           deselectLabel="Remover"
-        ></multiselect>
+        ></multiselect>-->
 
       </div>
       <div class="col-md-12 mt-3">

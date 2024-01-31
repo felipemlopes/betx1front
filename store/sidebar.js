@@ -28,8 +28,8 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchDevice({commit}){
-    let mobile = this.$mobileDetect.phone()
+  async fetchDevice({commit}){
+    let mobile = await this.$mobileDetect.phone()
     console.log(mobile)
     if(mobile===null){
       commit('setSidebarcassino', false)

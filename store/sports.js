@@ -16,9 +16,9 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchSports({commit}){
+  async fetchSports({commit}){
     let sportsData = [];
-    this.$axios.get("/laravel/api/sportsbook/sports").then( response => {
+    await this.$axios.get("/laravel/api/sportsbook/sports").then( response => {
       response.data.data.forEach( el => {
         let details = {
           id: el.id,

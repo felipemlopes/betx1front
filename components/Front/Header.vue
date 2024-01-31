@@ -451,11 +451,11 @@ export default {
       return faDice
     },
   },
-  mounted() {
-    this.$axios.$get("/laravel/sanctum/csrf-cookie");
+  async mounted() {
+    await this.$axios.$get("/laravel/sanctum/csrf-cookie");
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
     this.link_indication = window.location.host+"?ref="
-    this.getUser()
+    await this.getUser()
   },
   methods: {
     esquecisenha(){
@@ -587,8 +587,8 @@ export default {
       this.$toast.success('Link Copiado!',{duration:600})
     },
     async getUser() {
-      if(this.$cookies.get("tokenauth")){
-        this.$axios.get("/laravel/api/user")
+      if(await this.$cookies.get("tokenauth")){
+        await this.$axios.get("/laravel/api/user")
           .then(res => {
             this.user_id = res.data.data.id;
             this.username = res.data.data.username;

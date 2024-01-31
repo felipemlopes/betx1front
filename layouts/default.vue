@@ -36,10 +36,9 @@ export default {
   beforeCreate() {
     this.showHideSpinner = true;
   },
-  mounted() {
-    this.$cookies.modal = true
+  async mounted() {
     this.showHideSpinner = false;
-    this.$store.dispatch('user/fetchBalance')
+    await this.$store.dispatch('user/fetchBalance')
   },
 
 };

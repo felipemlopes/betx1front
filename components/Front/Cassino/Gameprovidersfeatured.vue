@@ -39,8 +39,8 @@
 </template>
 
 <script>
+import {faPlay} from "@fortawesome/free-solid-svg-icons";
 export default {
-
   data(){
     return {
       featuredprovider: {
@@ -53,10 +53,13 @@ export default {
     };
   },
   computed: {
+    faPlay () {
+      return faPlay
+    },
   },
-  mounted() {
-    this.getFeaturedProvider()
-    this.getFeaturedGames()
+  async mounted() {
+    await this.getFeaturedProvider()
+    await this.getFeaturedGames()
   },
   methods: {
     async getFeaturedProvider() {
@@ -69,7 +72,7 @@ export default {
         });
     },
     async getFeaturedGames() {
-      await this.$axios.get("/laravel/api/cassino/slotgames?qtd=6")
+      await this.$axios.get("/laravel/api/cassino/slotgames?qtd=4")
         .then(res => {
           this.games = res.data.data;
         })

@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-2" v-for="(item, index) in this.providers">
-            <nuxt-link :to="{ name:'cassino-provedores-slug', params:{slug:item.slug}  }">
+            <nuxt-link :to="{ name:'cassino-game-provedores-slug', params:{slug:item.slug}  }">
               <div class="bg-soft-dark text-center p-2" style="height: 120px;">
                 <img :src="item.logo" style="height: 35px;" :alt="item.name" class="mt-3"/>
               </div>
@@ -35,8 +35,8 @@ export default {
   },
   computed: {
   },
-  mounted() {
-    this.getProviders()
+  async mounted() {
+    await this.getProviders()
   },
   methods: {
     async getProviders() {
