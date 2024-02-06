@@ -483,9 +483,11 @@ export default {
       this.$router.push('/auth/esqueci/senha')
     },
     async dologout(){
+      await this.$axios.$get("/laravel/api/logout");
       this.user_id = null
       this.username = null
       await this.$cookies.remove('tokenauth')
+      await this.$cookies.remove('jogosbr_session')
       //this.$store.commit('auth/logout')
       this.$router.push('/')
       //this.$router.go(0)
@@ -561,7 +563,7 @@ export default {
               this.$router.go(0)
             }).catch(err => {
               const code = err
-              console.log(code.response.data)
+              //console.log(code.response.data.message.message)
               this.loading = false;
               (code.response.data.errors)
                 ? this.setErrors(code.response.data.errors)
@@ -569,6 +571,7 @@ export default {
               (code.response.data.message==="Credentials not match")
                 ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
                 : null;
+
           });
 
         }).catch(err => {
@@ -578,6 +581,9 @@ export default {
           (code.response.data.errors)
             ? this.setErrors(code.response.data.errors)
             : this.clearErrors();
+          (code.response.data.message==="minor")
+            ? this.$toast.error('CPF de pessoa menor de idade! Tente novamente.',{duration:600})
+            : null;
       });
     },
     setErrors(errors) {

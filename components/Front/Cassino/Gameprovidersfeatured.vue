@@ -44,10 +44,10 @@ export default {
   data(){
     return {
       featuredprovider: {
-        id: null,
-        name: null,
-        slug: null,
-        logo: null,
+        id: '',
+        name: '',
+        slug: '',
+        logo: '',
       },
       games: []
     };
@@ -65,7 +65,10 @@ export default {
     async getFeaturedProvider() {
       await this.$axios.get("/laravel/api/cassino/providers/featured")
         .then(res => {
-          this.featuredprovider = res.data.data;
+          if(res.data.data){
+            this.featuredprovider = res.data.data;
+          }
+
         })
         .catch(err => {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})

@@ -82,7 +82,7 @@ export default {
         });
     },
     async getGames() {
-      await this.$axios.get("/laravel/api/cassino/games")
+      await this.$axios.get("/laravel/api/cassino/provider/"+this.$route.params.slug+"/games")
         .then(res => {
           this.games = res.data.data;
         })
