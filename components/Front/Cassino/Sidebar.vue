@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="left-side-menu" :class="{ 'd-none': this.$store.state.sidebar.sidebarcassino }">
+    <div class="left-side-menu">
 
       <div class="h-100" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;">
         <div class="simplebar-height-auto-observer-wrapper">

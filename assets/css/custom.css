@@ -252,13 +252,13 @@
   width: 30px;
 }
 
-.content-page-internal {
+/*.content-page-internal {
   margin-left: 250px;
   overflow: hidden;
   padding: 0 4% 65px 4%;
   min-height: 80vh;
   margin-top: 70px;
-}
+}*/
 
 .box-provider{
   border-radius: 15px;
@@ -266,4 +266,81 @@
 
 .recommended-game{
   border-radius: 15px;
+}
+
+
+
+.left-side-menu {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #424e5a;
+  bottom: 0;
+  padding: 20px 0;
+  position: fixed;
+  transition: all .1s ease-out;
+  top: 70px;
+}
+
+.left-side-menu-mobile {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #424e5a;
+  bottom: 0;
+  padding: 20px 0;
+  position: fixed;
+  transition: all .1s ease-out;
+  top: 70px;
+}
+
+.deposit-icon{
+  display: none;
+}
+.deposit-text{
+  display: block;
+}
+.username-text{
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .sidebar-enable .content-page-internal{
+    margin-left: 250px;
+    overflow: hidden;
+    padding: 0 4% 65px 4%;
+    min-height: 80vh;
+    margin-top: 70px;
+  }
+  .content-page-internal{
+    margin-left: 250px;
+    overflow: hidden;
+    padding: 0 4% 65px 4%;
+    min-height: 80vh;
+    margin-top: 70px;
+  }
+}
+
+@media (max-width: 991px) {
+  .sidebar-enable .content-page-internal{
+    margin-left: 0px;
+    overflow: hidden;
+    padding: 0 4% 65px 4%;
+    min-height: 80vh;
+    margin-top: 70px;
+  }
+  .content-page-internal{
+    margin-left: 0px;
+    overflow: hidden;
+    padding: 0 4% 65px 4%;
+    min-height: 80vh;
+    margin-top: 70px;
+  }
+  .deposit-icon{
+    display: block;
+  }
+  .deposit-text{
+    display: none;
+  }
+  .username-text{
+    display: none;
+  }
 }

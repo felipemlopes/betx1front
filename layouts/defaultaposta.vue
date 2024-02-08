@@ -2,7 +2,7 @@
 
     <div>
       <LoadSpinner v-if="showHideSpinner" />
-      <div class="" id="wrapper">
+      <div class="" id="wrapper" :class="{'sidebar-enable': this.$store.state.sidebar.sidebarcassino }">
         <FrontApostasHeader />
         <FrontApostasSidebar />
 

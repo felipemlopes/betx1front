@@ -15,7 +15,7 @@
             </a>
           </li>
 
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+          <li class="dropdown notification-list px-2 py-2 username-text" v-show="this.$cookies.get('tokenauth')">
             <p class="text-white py-2">Bem-vindo {{ username }}!</p>
           </li>
 
@@ -79,7 +79,8 @@
           </li>
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
-              Depositar
+              <fa-icon :icon="faDice" class="text-secondary pr-5 deposit-icon" />
+              <span class="deposit-text">Depositar</span>
             </NuxtLink>
           </li>
         </ul>
