@@ -36,7 +36,7 @@ export default {
   },
   async mounted() {
     this.showHideSpinner = false;
-    await this.$store.dispatch('games/fetchGames')
+    //await this.$store.dispatch('games/fetchGames')
     await this.$store.dispatch('sidebar/fetchDevice')
     await this.$store.dispatch('user/fetchBalance')
   },

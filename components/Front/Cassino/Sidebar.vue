@@ -140,9 +140,10 @@ export default {
           this.promotion.percent = res.data.data.percent;
         })
         .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          this.$toast.error('Erro!',{duration:600})
         });
     },
+
   },
 
 };

@@ -8,22 +8,22 @@
               <ul class="nav nav-pills navtab-bg nav-justified">
                 <li class="nav-item">
                   <NuxtLink :to="{ name:'cassino-conta'}" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    <span class="d-none d-sm-block">Perfil</span>
+                    <span class="">Perfil</span>
                   </NuxtLink>
                 </li>
                 <li class="nav-item">
                   <NuxtLink :to="{ name:'cassino-conta-historico'}" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    <span class="d-none d-sm-block">Histórico</span>
+                    <span class="">Histórico</span>
                   </NuxtLink>
                 </li>
                 <li class="nav-item">
                   <NuxtLink :to="{ name:'cassino-conta-transacoes-depositos'}" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                    <span class="d-none d-sm-block">Transações</span>
+                    <span class="">Transações</span>
                   </NuxtLink>
                 </li>
                 <li class="nav-item">
                   <NuxtLink :to="{ name:'cassino-conta-senha'}" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    <span class="d-none d-sm-block">Senha</span>
+                    <span class="">Senha</span>
                   </NuxtLink>
                 </li>
               </ul>

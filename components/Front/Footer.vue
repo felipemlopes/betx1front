@@ -13,7 +13,11 @@
               <li>
                 <strong class="fs-5">Link Úteis</strong>
               </li>
-
+              <li class="mt-3" v-for="(item, index) in this.pages" v-if="pages.length">
+                <NuxtLink :to="{ name:'pagina-slug', params:{slug:item.slug}}" class="fw-bold footer-links link-light">
+                  {{ item.title }}
+                </NuxtLink>
+              </li>
             </ul>
           </div>
           <div class="col-md-4">
@@ -49,7 +53,7 @@ export default {
 
   data(){
     return {
-
+      pages: []
     };
   },
   computed: {
@@ -58,10 +62,22 @@ export default {
     },
 
   },
-  mounted() {
+  async mounted() {
     //this.$auth.fetchUser()
+    await this.getPages()
   },
   methods: {
+    async getPages() {
+      await this.$axios.get("/laravel/api/pages")
+        .then(res => {
+          if(res.data.data){
+            this.pages = res.data.data;
+          }
+        })
+        .catch(err => {
+          this.$toast.error('Erro!',{duration:600})
+        });
+    },
   },
 
 };

@@ -19,10 +19,10 @@
             <p class="text-white py-2">Bem-vindo {{ username }}!</p>
           </li>
 
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')" v-click-outside="externalClick">
             <div class="dropdown">
               <div class="text-white px-1 py-2">
-                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" v-click-outside="externalClick"/>
+                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" />
               </div>
               <ul class="dropdown-menu" :class="{ 'show': usermenushow }">
                 <li>
@@ -79,7 +79,7 @@
           </li>
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
-              <fa-icon :icon="faDice" class="text-secondary pr-5 deposit-icon" />
+              <fa-icon :icon="faMoneyBill" class="text-secondary pr-5 deposit-icon" />
               <span class="deposit-text">Depositar</span>
             </NuxtLink>
           </li>
@@ -392,6 +392,7 @@ import { faReceipt } from '@fortawesome/free-solid-svg-icons'
 import { faDoorClosed } from '@fortawesome/free-solid-svg-icons'
 import { faFutbol } from '@fortawesome/free-solid-svg-icons'
 import { faDice } from '@fortawesome/free-solid-svg-icons'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import vClickOutside from 'v-click-outside'
 export default {
   directives: {
@@ -434,6 +435,9 @@ export default {
   computed: {
     affiliatelink () {
       return this.link_indication+this.user_id
+    },
+    faMoneyBill () {
+      return faMoneyBill
     },
     faUserAlt () {
       return faUserAlt

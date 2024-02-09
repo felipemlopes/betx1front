@@ -169,7 +169,7 @@ export default {
           this.promotion = res.data.data.thumb;
         })
         .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          this.$toast.error('Erro!',{duration:600})
         });
     },
     async getCrashGames() {
@@ -178,7 +178,7 @@ export default {
           this.crashgames = res.data.data;
         })
         .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          this.$toast.error('Erro!',{duration:600})
         });
     },
     async getSlotGames() {
@@ -187,7 +187,7 @@ export default {
           this.slotgames = res.data.data;
         })
         .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          this.$toast.error('Erro!',{duration:600})
         });
     },
     onScroll({left}) {

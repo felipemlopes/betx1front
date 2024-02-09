@@ -20,10 +20,10 @@
             <p class="text-white py-2">Bem-vindo {{ username }}!</p>
           </li>
 
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')" v-click-outside="externalClick">
             <div class="dropdown">
               <div class="text-white px-1 py-2">
-                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" v-click-outside="externalClick"/>
+                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" />
               </div>
               <ul class="dropdown-menu" :class="{ 'show': usermenushow }">
                 <li>
@@ -83,7 +83,7 @@
           </li>
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
-              <fa-icon :icon="faDice" class="pr-5 deposit-icon" />
+              <fa-icon :icon="faMoneyBill" class="pr-5 deposit-icon" />
               <span class="deposit-text">Depositar</span>
             </NuxtLink>
           </li>
@@ -417,6 +417,7 @@ import { faReceipt } from '@fortawesome/free-solid-svg-icons'
 import { faDoorClosed } from '@fortawesome/free-solid-svg-icons'
 import { faFutbol } from '@fortawesome/free-solid-svg-icons'
 import { faDice } from '@fortawesome/free-solid-svg-icons'
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import vClickOutside from 'v-click-outside'
 export default {
   directives: {
@@ -459,6 +460,9 @@ export default {
   computed: {
     affiliatelink () {
       return this.link_indication+this.user_id
+    },
+    faMoneyBill () {
+      return faMoneyBill
     },
     faUserAlt () {
       return faUserAlt
@@ -522,13 +526,11 @@ export default {
       if(this.form.document.length===14){
         this.loading = true;
         await this.$axios.get('/laravel/api/consulta/cpf?cpf='+this.form.document).then(res => {
-          console.log(res.data)
           this.form.name = res.data.nome;
           this.form.birth = res.data.dtnasc;
           this.loading = false;
         }).catch(err => {
           const code = err
-          console.log(code.response.data)
           this.loading = false;
           (code.response.data.errors)
             ? this.setErrors(code.response.data.errors)
@@ -669,7 +671,7 @@ export default {
             this.username = res.data.data.username;
           })
           .catch(err => {
-            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+            this.$toast.error('Erro!',{duration:600})
           });
       }
     },

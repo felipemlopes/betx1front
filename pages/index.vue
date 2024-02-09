@@ -8,7 +8,7 @@
             <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true">
               <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
                 <nuxt-link to="/">
-                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">>
+                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">
                 </nuxt-link>
               </div>
 
