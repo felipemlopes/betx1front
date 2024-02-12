@@ -39,6 +39,7 @@ export default {
   async mounted() {
     this.showHideSpinner = false;
     await this.$store.dispatch('user/fetchBalance')
+    await this.$store.dispatch('banners/fetchBanners')
   },
 
 };

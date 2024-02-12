@@ -34,8 +34,9 @@ export default {
   beforeCreate() {
     this.showHideSpinner = true;
   },
-  mounted() {
+  async mounted() {
     this.showHideSpinner = false;
+    await this.$store.dispatch('banners/fetchBanners')
   },
 };
 </script>

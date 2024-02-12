@@ -348,3 +348,21 @@ body{
     display: none;
   }
 }
+
+
+.carrossel-item{
+  height: 250px;
+}
+.carrossel-item img{
+  height: 250px;
+  width: -webkit-fill-available;
+}
+@media (max-width: 991px) {
+  .carrossel-item{
+    height: 150px;
+  }
+  .carrossel-item img{
+    height: 150px;
+    width: -webkit-fill-available;
+  }
+}

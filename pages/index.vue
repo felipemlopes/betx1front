@@ -3,19 +3,18 @@
   <div class="">
       <div class="container">
 
-        <div class="carossel">
+        <div class="carossel" v-show="this.$store.state.banners.banners.length">
           <div class="mt-1" @mousedown.left="onMouseDown">
-            <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true">
-              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
-                <nuxt-link to="/">
-                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">
-                </nuxt-link>
-              </div>
+            <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true" >
 
-              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
-                <nuxt-link to="/">
-                  <img src="https://placehold.co/1300x250" style="width:-webkit-fill-available;">
-                </nuxt-link>
+              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select carrossel-item" v-for="(item, index) in this.$store.state.banners.banners">
+                <a :href="item.url" v-if="item.url">
+                  <img :src="item.image">
+                </a>
+
+                <a v-else>
+                  <img :src="item.image">
+                </a>
               </div>
 
             </vue-horizontal>

@@ -4,20 +4,18 @@
 
     <div class="row m-0 pl-2 pr-2">
       <div class="col-md-12">
-        <div class="carossel">
+        <div class="carossel" v-show="this.$store.state.banners.banners.length">
           <div class="mt-1" @mousedown.left="onMouseDown">
-            <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true">
+            <vue-horizontal  class="row horizontal prevent-select" ref="horizontal" snap="none" :button="true" >
 
-              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
-                <nuxt-link to="/">
-                  <img src="https://placehold.co/1300x250" style="width:100%;">
-                </nuxt-link>
-              </div>
+              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select carrossel-item" v-for="(item, index) in this.$store.state.banners.banners">
+                <a :href="item.url" v-if="item.url">
+                  <img :src="item.image">
+                </a>
 
-              <div class="col-12 col-sm-6 col-md-12 col-lg-12 prevent-select" style="height: 250px;">
-                <nuxt-link to="/">
-                  <img src="https://placehold.co/1300x250" style="width:100%;">
-                </nuxt-link>
+                <a v-else>
+                  <img :src="item.image">
+                </a>
               </div>
 
             </vue-horizontal>
@@ -26,32 +24,6 @@
       </div>
     </div>
 
-    <!--
-    <div class="row pl-2 mt-0">
-      <div class="col-md-12">
-        <h4 class="text-white">Recomendados</h4>
-      </div>
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4">
-            <nuxt-link to="/">
-              <img class="recommended-game" src="https://static.bet7k.com/deploy-96f578a748ff285525db0f8cc5eab07e0a62fd3d-733a5c3d3e60d2ca7769/img/bet7k_gatesofbet7k_desktop.vX-uKBFl8Q3aJ.cdcf8e8.png?v=vX-VmcY3WJFv9" style="width:100%;height: 105px;">
-            </nuxt-link>
-          </div>
-          <div class="col-md-4 ">
-            <nuxt-link to="/">
-              <img class="recommended-game" src="https://static.bet7k.com/deploy-96f578a748ff285525db0f8cc5eab07e0a62fd3d-733a5c3d3e60d2ca7769/img/bet7k_gatesofbet7k_desktop.vX-uKBFl8Q3aJ.cdcf8e8.png?v=vX-VmcY3WJFv9" style="width:100%;height: 105px;">
-            </nuxt-link>
-          </div>
-          <div class="col-md-4">
-            <nuxt-link to="/">
-              <img class="recommended-game" src="https://static.bet7k.com/deploy-96f578a748ff285525db0f8cc5eab07e0a62fd3d-733a5c3d3e60d2ca7769/img/bet7k_gatesofbet7k_desktop.vX-uKBFl8Q3aJ.cdcf8e8.png?v=vX-VmcY3WJFv9" style="width:100%;height: 105px;">
-            </nuxt-link>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
 
     <FrontCassinoGameprovidersfeatured></FrontCassinoGameprovidersfeatured>
 
