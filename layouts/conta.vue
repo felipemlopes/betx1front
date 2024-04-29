@@ -6,11 +6,9 @@
         <FrontHeader />
         <FrontSidebar />
 
-        <div class="content-page-internal d-flex p-0">
+        <div class="content-page-internal">
 
           <Nuxt />
-
-          <FrontSidebarright></FrontSidebarright>
 
         </div>
 
@@ -42,8 +40,6 @@ export default {
     await this.$store.dispatch('sidebar/fetchDevice')
     await this.$store.dispatch('user/fetchBalance')
     await this.$store.dispatch('banners/fetchBanners')
-    await this.$store.dispatch('settings/fetchSettings')
-    await this.$store.dispatch('bets/fetchBets')
   },
 };
 </script>

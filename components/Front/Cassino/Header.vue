@@ -101,14 +101,11 @@
               </NuxtLink>
             </li>
             <li class="list-inline-item py-3">
-              <a href="" class="text-white" style="font-size: 18px;">
+
+              <NuxtLink :to="{ name:'apostas'  }" class="text-white" style="font-size: 18px;">
                 <fa-icon :icon="faFutbol" class="pr-5" />
                 Esportes
-              </a>
-              <!--<NuxtLink :to="{ name:'apostas'  }" class="text-white" style="font-size: 18px;">
-                <fa-icon :icon="faFutbol" class="pr-5" />
-                Esportes
-              </NuxtLink>-->
+              </NuxtLink>
             </li>
           </ul>
 
@@ -550,7 +547,7 @@ export default {
       })
         .then(res => {
           this.$store.commit('auth/setToken', res.data)
-          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
+          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {

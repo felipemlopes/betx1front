@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'TESTE',
+    title: 'JogosBr',
     htmlAttrs: {
       lang: 'pt-br'
     },
@@ -51,7 +51,8 @@ export default {
     'cookie-universal-nuxt',
     'nuxt-sweetalert2',
     'nuxt-mobile',
-    'nuxt-vue-multiselect'
+    'nuxt-vue-multiselect',
+    ['@nuxtjs/bootstrap-vue', { css: false }]
   ],
 
 

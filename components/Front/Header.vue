@@ -3,7 +3,8 @@
 
     <div class="navbar-custom">
       <div class="container-fluid">
-        <ul class="list-unstyled topnav-menu float-end mb-0">
+        <ul class="list-unstyled topnav-menu float-end mb-0" v-show="!this.$cookies.get('tokenauth')">
+
           <li class="dropdown notification-list px-2 py-2" v-show="!this.$cookies.get('tokenauth')">
             <a class="nav-link right-bar-toggle fw-bold fs-5 pointer" v-on:click="openModalRegister">
               Registre-se
@@ -15,96 +16,70 @@
             </a>
           </li>
 
-          <li class="dropdown notification-list px-2 py-2 username-text" v-show="this.$cookies.get('tokenauth')">
-            <p class="text-white py-2">Bem-vindo {{ username }}!</p>
+        </ul>
+
+        <ul class="list-unstyled topnav-menu float-end mb-0" v-show="this.$cookies.get('tokenauth')">
+
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+            <NuxtLink :to="{ name:'conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
+              <span class="deposit-text">Depositar</span>
+            </NuxtLink>
+          </li>
+
+          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+            <div class="text-white px-3" style="padding-top:0.5rem;padding-bottom:0.5rem;">
+              <span class="fs-4">
+                R$ {{this.$store.state.user.totalbalance}}
+              </span>
+            </div>
           </li>
 
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')" v-click-outside="externalClick">
             <div class="dropdown">
-              <div class="text-white px-1 py-2">
-                <fa-icon :icon="faGear" class="pr-5 pointer" v-on:click="toggleUserMenu" />
+              <div class="text-white px-2 py-2 pointer" v-on:click="toggleUserMenu">
+                {{username}}
+                <fa-icon :icon="faGear" class="pl-2 pr-5"/>
               </div>
-              <ul class="dropdown-menu" :class="{ 'show': usermenushow }">
-                <li>
-                  <NuxtLink :to="{ name:'cassino-conta'}" class="dropdown-item">
-                    <fa-icon :icon="faUserAlt" style="margin-right: 10px;"/>
-                    Conta
-                  </NuxtLink>
-                  <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="dropdown-item">
-                    <fa-icon :icon="faPlusSquare" style="margin-right: 10px;"/>
-                    Depositar
-                  </NuxtLink>
-                  <NuxtLink :to="{ name:'cassino-conta-saque'}" class="dropdown-item">
-                    <fa-icon :icon="faMinusSquare" style="margin-right: 10px;"/>
-                    Sacar
-                  </NuxtLink>
-                  <a class="dropdown-item" v-on:click="openModalAffiliate">
-                    <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
-                    Indique Um Amigo
-                  </a>
-                  <NuxtLink :to="{ name:'cassino-conta-transacoes'}" class="dropdown-item">
-                    <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
-                    Transações
-                  </NuxtLink>
-                  <NuxtLink :to="{ name:'cassino-conta-historico'}" class="dropdown-item">
-                    <fa-icon :icon="faClock" style="margin-right: 10px;"/>
-                    Histórico
-                  </NuxtLink>
-                  <!--<NuxtLink :to="{ name:'cassino-conta-bonus'}" class="dropdown-item">
-                    <fa-icon :icon="faGift" style="margin-right: 10px;"/>
-                    Bônus
-                  </NuxtLink>
-                  <NuxtLink :to="{ name:'cassino-conta-preferencias'}" class="dropdown-item">
-                    <fa-icon :icon="faGear" style="margin-right: 10px;"/>
-                    Preferêcias
-                  </NuxtLink>
-                  <NuxtLink :to="{ name:'cassino-conta-recompensas'}" class="dropdown-item">
-                    <fa-icon :icon="faMedal" style="margin-right: 10px;"/>
-                    Recompensas
-                  </NuxtLink>-->
-                  <hr class="dropdown-divider">
-                  <a class="dropdown-item" v-on:click="dologout">
-                    <fa-icon :icon="faDoorClosed" style="margin-right: 10px;"/>
-                    Sair
-                  </a>
-                </li>
-              </ul>
+              <div class="dropdown-menu" :class="{ 'show': usermenushow }" style="position: absolute; right: 0px;">
+                <NuxtLink :to="{ name:'conta'}" class="dropdown-item">
+                  <fa-icon :icon="faUserAlt" style="margin-right: 10px;"/>
+                  Conta
+                </NuxtLink>
+                <NuxtLink :to="{ name:'conta-deposito'}" class="dropdown-item">
+                  <fa-icon :icon="faPlusSquare" style="margin-right: 10px;"/>
+                  Depositar
+                </NuxtLink>
+                <NuxtLink :to="{ name:'conta-saque'}" class="dropdown-item">
+                  <fa-icon :icon="faMinusSquare" style="margin-right: 10px;"/>
+                  Sacar
+                </NuxtLink>
+                <a class="dropdown-item" v-on:click="openModalAffiliate">
+                  <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
+                  Indique Um Amigo
+                </a>
+                <NuxtLink :to="{ name:'conta-transacoes'}" class="dropdown-item">
+                  <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
+                  Transações
+                </NuxtLink>
+                <NuxtLink :to="{ name:'conta-historico'}" class="dropdown-item">
+                  <fa-icon :icon="faClock" style="margin-right: 10px;"/>
+                  Histórico
+                </NuxtLink>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" v-on:click="dologout">
+                  <fa-icon :icon="faDoorClosed" style="margin-right: 10px;"/>
+                  Sair
+                </a>
+              </div>
             </div>
-          </li>
-
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
-            <div class="text-white px-1" style="border-radius:5px;padding-top:0.5rem;padding-bottom:0.5rem;border: 2px solid #323b45;width:135px;">
-              R$ {{this.$store.state.user.totalbalance}}
-            </div>
-          </li>
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
-            <NuxtLink :to="{ name:'cassino-conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
-              <fa-icon :icon="faMoneyBill" class="text-secondary pr-5 deposit-icon" />
-              <span class="deposit-text">Depositar</span>
-            </NuxtLink>
           </li>
         </ul>
 
         <div class="logo-box">
 
-          <ul class="list-unstyled list-inline">
-            <li class="list-inline-item py-2">
-              <NuxtLink :to="{ name:'cassino'  }" class="text-white " style="font-size: 18px;">
-                <fa-icon :icon="faDice" class="pr-5" />
-                Cassino
-              </NuxtLink>
-            </li>
-              <li class="list-inline-item py-3">
-              <a href="" class="text-white" style="font-size: 18px;">
-                <fa-icon :icon="faFutbol" class="pr-5" />
-                Esportes
-              </a>
-              <!--<NuxtLink :to="{ name:'apostas'  }" class="text-white" style="font-size: 18px;">
-                <fa-icon :icon="faFutbol" class="pr-5" />
-                Esportes
-              </NuxtLink>-->
-            </li>
-          </ul>
+          <NuxtLink :to="{ name:'index'  }" class="text-white d-block" style="font-size: 18px;width: 100%;text-align: center;margin-top: 15px;">
+            LOGO
+          </NuxtLink>
 
         </div>
 
@@ -482,6 +457,12 @@ export default {
     this.link_indication = window.location.host+"?ref="
     await this.getUser()
   },
+  created() {
+    this.$nuxt.$on('openlogin', () => {
+      console.log('openlogin!')
+      this.modallogin = true
+    })
+  },
   methods: {
     esquecisenha(){
       this.modallogin = false
@@ -526,8 +507,7 @@ export default {
         password: this.form.password,
       })
         .then(res => {
-          //this.$store.commit('auth/setToken', res.data)
-          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
+          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60});
           this.$toast.success('Logado com sucesso!',{duration:600})
           this.$router.go(0)
         }).catch(err => {

@@ -4,6 +4,9 @@ export default function ({ $axios, redirect, $store, app }) {
   //console.log(app.$cookies.get('tokenauth'))
   $axios.onRequest(config => {
     const tokenbearer = app.$cookies.get('tokenauth');
+    if(tokenbearer){
+      app.$cookies.set('tokenauth', tokenbearer,{ maxAge: 60 * 60});
+    }
     config.headers.Accept = "application/json";
     if(tokenbearer){
       config.headers.Authorization = 'Bearer ' + tokenbearer;

@@ -19,17 +19,35 @@
               {{this.sport.name_display}}
             </h4>
 
+            <div class="mt-2">
+
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-aovivo', params:{slug:this.$route.params.slug}}" class="nav-link">Ao vivo</nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-proximos', params:{slug:this.$route.params.slug}}" class="nav-link active">Próximos</nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-paises', params:{slug:this.$route.params.slug}}" class="nav-link">Países</nuxt-link>
+                </li>
+              </ul>
+
+            </div>
+
           </div>
         </div>
       </div>
 
+
       <div class="col-md-12">
 
         <div class="row">
-          <FrontNextmatches :sport_slug="this.slugSport"></FrontNextmatches>
+          <FrontNextmatches :sport_slug="this.$route.params.slug"></FrontNextmatches>
         </div>
 
       </div>
+
 
     </div>
   </div>
@@ -39,13 +57,10 @@
 <script>
 import {faPlay} from '@fortawesome/free-solid-svg-icons'
 export default {
-  layout: 'defaultcassino',
+  layout: 'default',
   data(){
     return {
-      promotion: null,
-      left: 0,
-      originX: 0,
-      originLeft: 0,
+      countries: [],
       sport: {
         id: "",
         name: "",
@@ -54,17 +69,15 @@ export default {
         icon: "",
         meta: "",
       },
+      selected_championship: "1"
     };
   },
   computed: {
-    games () {
-      return this.$store.state.games.games
-    },
     faPlay () {
       return faPlay
     },
     slugSport(){
-      return "soccer";
+      return this.$route.params.slug;
     },
   },
   async mounted() {
@@ -72,7 +85,7 @@ export default {
   },
   methods: {
     getSport() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.slugSport)
+      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug)
         .then(res => {
           this.sport.id = res.data.data.sport.id;
           this.sport.name = res.data.data.sport.name;
@@ -85,7 +98,15 @@ export default {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
         });
     },
+    getCountries() {
+      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug+"/championship/countries/list")
+        .then(res => {
+          this.countries = res.data.data;
+        })
+        .catch(err => {
+          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+        });
+    },
   },
 }
 </script>
-
