@@ -43,7 +43,10 @@ export default {
     await this.$store.dispatch('user/fetchBalance')
     await this.$store.dispatch('banners/fetchBanners')
     await this.$store.dispatch('settings/fetchSettings')
-    await this.$store.dispatch('bets/fetchBets')
+    if(this.$cookies.get('tokenauth')){
+      await this.$store.dispatch('bets/fetchBets')
+    }
+
   },
 };
 </script>
