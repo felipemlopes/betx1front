@@ -1,5 +1,5 @@
 <template>
-  <div class="right-side-menu p-1">
+  <div class="right-side-menu p-1" :class="{ active: isOpenMobile }">
 
     <p class="text-warning m-0 mt-3 fw-bold">Bilhete de apostas</p>
     <div class="card bg-dark">
@@ -86,6 +86,7 @@ export default {
   data(){
     return {
       loading: false,
+      open: false,
       promotion: {
         id: null,
         name: null,
@@ -105,6 +106,13 @@ export default {
     faTrashAlt () {
       return faTrashAlt
     },
+    isOpenMobile() {
+      console.log(this.open)
+      if(this.open){
+        return "active"
+      }
+      return ""
+    },
   },
   async mounted() {
     await this.getPromotion()
@@ -112,6 +120,12 @@ export default {
   created() {
     this.$nuxt.$on('addedtobillet',(value) => {
       console.log('addedtobillet!')
+    })
+    this.$nuxt.$on('togglebillet',() => {
+      console.log('togglebillet!')
+      console.log(this.open)
+      this.open = !this.open
+      console.log(this.open)
     })
   },
   methods: {

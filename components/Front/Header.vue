@@ -6,13 +6,14 @@
         <ul class="list-unstyled topnav-menu float-end mb-0" v-show="!this.$cookies.get('tokenauth')">
 
           <li class="dropdown notification-list px-2 py-2" v-show="!this.$cookies.get('tokenauth')">
-            <a class="nav-link right-bar-toggle fw-bold fs-5 pointer" v-on:click="openModalRegister">
-              Registre-se
+            <a class="nav-link right-bar-toggle btn-register fw-bold fs-5 pointer" v-on:click="openModalRegister">
+              <fa-icon :icon="faUserPlus" class="pl-2 pr-5"/>
+              <span>Registre-se</span>
             </a>
           </li>
           <li class="dropdown notification-list px-2 py-2" v-show="!this.$cookies.get('tokenauth')">
-            <a class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5" v-on:click="openModalLogin">
-              Entrar
+            <a class="nav-link right-bar-toggle btn btn-primary btn-login text-uppercase fw-bold fs-5" v-on:click="openModalLogin">
+              <span>Entrar</span>
             </a>
           </li>
 
@@ -73,6 +74,7 @@
               </div>
             </div>
           </li>
+
         </ul>
 
         <div class="logo-box">
@@ -169,39 +171,6 @@
                   <form @submit.prevent="register">
 
                     <div class="mb-3">
-                      <label for="document" class="form-label text-white-50">CPF</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{'is-invalid' : error.document}"
-                        id="document"
-                        v-model="form.document"
-                        autocomplete="off"
-                        :disabled="loading"
-                        placeholder=""
-                        v-mask="['###.###.###-##']"
-                        v-on:input="consultcpf"
-                      />
-                      <div class="invalid-feedback" v-show="error.document">{{ error.document }}</div>
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="document" class="form-label text-white-50">Data de nascimento</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :class="{'is-invalid' : error.birth}"
-                        id="birth"
-                        v-model="form.birth"
-                        autocomplete="off"
-                        disabled
-                        placeholder=""
-                        v-mask="['##/##/####']"
-                      />
-                      <div class="invalid-feedback" v-show="error.birth">{{ error.birth }}</div>
-                    </div>
-
-                    <div class="mb-3">
                       <label for="name" class="form-label text-white-50">Nome</label>
                       <input
                         type="text"
@@ -210,7 +179,7 @@
                         id="name"
                         v-model="form.name"
                         autocomplete="off"
-                        disabled
+                        :disabled="loading"
                         placeholder=""
                       />
                       <div class="invalid-feedback" v-show="error.name">{{ error.name }}</div>
@@ -231,6 +200,38 @@
                       <div class="invalid-feedback" v-show="error.username">{{ error.username }}</div>
                     </div>
 
+                    <div class="mb-3">
+                      <label for="document" class="form-label text-white-50">CPF</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :class="{'is-invalid' : error.document}"
+                        id="document"
+                        v-model="form.document"
+                        autocomplete="off"
+                        :disabled="loading"
+                        placeholder=""
+                        v-mask="['###.###.###-##']"
+                      />
+                      <div class="invalid-feedback" v-show="error.document">{{ error.document }}</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="document" class="form-label text-white-50">Data de nascimento</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        :class="{'is-invalid' : error.birth}"
+                        id="birth"
+                        v-model="form.birth"
+                        autocomplete="off"
+                        :disabled="loading"
+                        placeholder=""
+                        v-mask="['##/##/####']"
+                      />
+                      <div class="invalid-feedback" v-show="error.birth">{{ error.birth }}</div>
+                    </div>
+
                     <div class="form-group">
                       <label for="" class="form-label text-white-50">Telefone</label>
                       <input
@@ -243,7 +244,6 @@
                         :disabled="loading"
                         placeholder=""
                         v-mask="['(##)#####-####']"
-                        style="background-color: #131521; border: 1px solid #131521;"
                       />
                       <div class="invalid-feedback" v-show="error.phone">{{ error.phone }}</div>
                     </div>
@@ -368,6 +368,7 @@ import { faDoorClosed } from '@fortawesome/free-solid-svg-icons'
 import { faFutbol } from '@fortawesome/free-solid-svg-icons'
 import { faDice } from '@fortawesome/free-solid-svg-icons'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import vClickOutside from 'v-click-outside'
 export default {
   directives: {
@@ -410,6 +411,9 @@ export default {
   computed: {
     affiliatelink () {
       return this.link_indication+this.user_id
+    },
+    faArrowRightFromBracket () {
+      return faArrowRightFromBracket
     },
     faMoneyBill () {
       return faMoneyBill
@@ -459,7 +463,6 @@ export default {
   },
   created() {
     this.$nuxt.$on('openlogin', () => {
-      console.log('openlogin!')
       this.modallogin = true
     })
   },

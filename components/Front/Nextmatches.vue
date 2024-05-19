@@ -7,7 +7,7 @@
     <div class="mt-0 py-1" v-else v-for="(item, index) in this.matches">
       <a v-b-toggle="'collapse-'+index" class="text-white font-weight-bold d-flex justify-content-between border-bottom">
           <span class="text-dark fw-bold fs-16">
-            PAIS / {{ index }}
+            <img :src="getCountryFlagById(item[0].country_id)" :style="{width:'15px'}"> {{ getCountryById(item[0].country_id) }} / {{ index }}
 
           </span>
           <span class="badge text-warning">
@@ -115,6 +115,20 @@ export default {
     await this.getMatches()
   },
   methods: {
+    getCountryById(country_id) {
+      let searched = this.$store.state.sports.countries
+      searched = searched.filter((item) => {
+        return parseInt(item.id) === parseInt(country_id)
+      })
+      return searched[0]?searched[0]?.name:null;
+    },
+    getCountryFlagById(country_id) {
+      let searched = this.$store.state.sports.countries
+      searched = searched.filter((item) => {
+        return parseInt(item.id) === parseInt(country_id)
+      })
+      return searched[0]?searched[0]?.flag:null;
+    },
     getSport() {
       this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug)
         .then(res => {
@@ -152,15 +166,8 @@ export default {
     getChampionshipsNameById(value){
       let searched = this.championships
       searched = searched.filter((item) => {
-        console.log("id: "+item.id)
-        console.log("value: "+value)
-        //return item.id === value
         return parseInt(item.id) === parseInt(value)
-        return 122 === 122
       })
-      //console.log(value)
-      //console.log(this.championships)
-      console.log(searched)
       return searched[0]?searched[0]?.name:null;
     },
     async addToBillet(payload) {

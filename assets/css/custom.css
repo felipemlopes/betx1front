@@ -347,6 +347,15 @@ body{
   .username-text{
     display: none;
   }
+  .footer{
+    /*bottom:0;*/
+    padding:19px 15px 20px;
+    position:absolute;
+    right:0;
+    color:#6c757d;
+    left:0 !important;
+    border-top:1px solid #e2e7f1;
+  }
 }
 
 
@@ -395,3 +404,104 @@ body{
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
 }
+
+.btn-register > svg{
+  display: none;
+}
+.btn-register > span{
+  display: block;
+}
+@media (max-width:991px){.footer{left:0!important;text-align:center}}
+@media (max-width:700px){
+  .btn-register > svg{
+    display: block;
+  }
+  .btn-register > span{
+    display: none;
+  }
+}
+@media (max-width:991.98px){
+  .logo-box{
+    width:70px!important;
+    padding-right:0!important;
+    border-bottom:1px solid #e2e7f1;
+    display:block;
+  }
+}
+
+.custom-content-bet{
+  width: 75%;
+}
+@media (max-width:991.98px){
+  .custom-content-bet{
+    width: 100%;
+  }
+  .right-side-menu{
+    display: none;
+  }
+}
+
+.menu-mobile{
+  background-color: #272628;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  z-index: 99999;
+  display: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+}
+@media (max-width:991.98px){
+  .menu-mobile{
+    background-color: #272628;
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    z-index: 99999;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+  }
+  .left-side-menu.active{
+    display: block;
+    padding-bottom: 75px;
+  }
+  .right-side-menu.active{
+    display: block;
+    padding-top: 85px !important;
+    padding-bottom: 85px !important;
+    position: fixed;
+    right: 0;
+    width: 300px;
+    background: #222;
+    z-index: 9999;
+  }
+}
+
+.btn-mobile{color:#fff;border-color:transparent}.btn-mobile:hover{color:#fff;background-color:transparent;border-color:transparent}
+.btn-check:focus+.btn-mobile,.btn-mobile:focus{color:#fff;background-color:transparent;border-color:transparent}
+.btn-check:active+.btn-mobile, .btn-check:checked+.btn-mobile,.btn-mobile.active,
+.btn-mobile.dropdown-toggle.show,.btn-mobile:active{color:#fff;background-color:transparent;border-color:transparent}
+.btn-check:active+.btn-mobile:focus,.btn-check:checked+.btn-mobile:focus,.btn-mobile.active:focus,.btn-mobile.dropdown-toggle.show:focus,.btn-mobile:active:focus{color:#fff;background-color:transparent;border-color:transparent}
+.btn-mobile.disabled,.btn-mobile:disabled{color:#fff;background-color:transparent}
+
+.btn-mobile > svg{
+  width: 25px!important;
+  height: 25px!important;
+}
+@media (max-width:500px){
+  .btn-mobile > .text{
+    display: none;
+  }
+}
+
+.counter-bets{
+  position: relative !important;
+  top: -10px !important;
+}
+
+

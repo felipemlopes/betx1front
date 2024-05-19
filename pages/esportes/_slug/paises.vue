@@ -4,7 +4,7 @@
 
     <div class="row mt-3">
       <div class="col-md-12">
-        <img src="~/assets/images/banner.jpg" class="card-img-top img-fluid" style="height: 200px;object-fit: cover;opacity:1;border-radius: 10px;">
+        <FrontBanner></FrontBanner>
       </div>
     </div>
 

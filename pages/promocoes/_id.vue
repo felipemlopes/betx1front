@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  layout: 'defaultcassino',
+  layout: 'default',
 
   data(){
     return {
