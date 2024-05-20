@@ -61,8 +61,7 @@ export default {
 
   },
   async mounted() {
-    //this.$auth.fetchUser()
-    await this.getPages()
+    //await this.getPages()
   },
   methods: {
     async getPages() {

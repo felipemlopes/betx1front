@@ -68,7 +68,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getSport()
+    //await this.getSport()
   },
   methods: {
     getSport() {

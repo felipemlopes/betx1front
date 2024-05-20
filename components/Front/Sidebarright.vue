@@ -115,7 +115,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getPromotion()
+    //await this.getPromotion()
   },
   created() {
     this.$nuxt.$on('addedtobillet',(value) => {

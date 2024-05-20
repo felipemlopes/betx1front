@@ -456,10 +456,10 @@ export default {
     },
   },
   async mounted() {
-    await this.$axios.$get("/laravel/sanctum/csrf-cookie");
-    this.form.indicatedby = this.$cookies.get("tokenaffiliate")
-    this.link_indication = window.location.host+"?ref="
-    await this.getUser()
+    //await this.$axios.$get("/laravel/sanctum/csrf-cookie");
+    //this.form.indicatedby = this.$cookies.get("tokenaffiliate")
+    //this.link_indication = window.location.host+"?ref="
+    //await this.getUser()
   },
   created() {
     this.$nuxt.$on('openlogin', () => {

@@ -70,7 +70,7 @@ export default {
   },
   async mounted() {
     this.showHideSpinner = false;
-    await this.$store.dispatch('sports/fetchSports')
+    /*await this.$store.dispatch('sports/fetchSports')
     await this.$store.dispatch('sports/fetchCountries')
     await this.$store.dispatch('sidebar/fetchDevice')
     await this.$store.dispatch('user/fetchBalance')
@@ -79,7 +79,7 @@ export default {
     await this.$store.dispatch('banners/fetchBanners')
     if(this.$cookies.get('tokenauth')){
       await this.$store.dispatch('bets/fetchBets')
-    }
+    }*/
 
   },
 
