@@ -68,22 +68,26 @@ export default {
     },
   },
   async mounted() {
-    //await this.getSport()
+    await this.getSport()
   },
   methods: {
     getSport() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.slugSport)
-        .then(res => {
-          this.sport.id = res.data.data.sport.id;
-          this.sport.name = res.data.data.sport.name;
-          this.sport.name_display = res.data.data.sport.name_display;
-          this.sport.slug = res.data.data.sport.slug;
-          this.sport.icon = res.data.data.sport.icon;
-          this.sport.meta = res.data.data.sport.meta;
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-        });
+      try {
+        this.$axios.get("/laravel/api/sportsbook/sports/"+this.slugSport)
+          .then(res => {
+            this.sport.id = res.data.data.sport.id;
+            this.sport.name = res.data.data.sport.name;
+            this.sport.name_display = res.data.data.sport.name_display;
+            this.sport.slug = res.data.data.sport.slug;
+            this.sport.icon = res.data.data.sport.icon;
+            this.sport.meta = res.data.data.sport.meta;
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
   },
 }

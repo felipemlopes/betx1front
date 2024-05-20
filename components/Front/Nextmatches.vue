@@ -130,38 +130,49 @@ export default {
       return searched[0]?searched[0]?.flag:null;
     },
     getSport() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug)
-        .then(res => {
-          this.sport.id = res.data.data.id;
-          this.sport.name = res.data.data.name;
-          this.sport.slug = res.data.data.slug;
-          this.sport.flag = res.data.data.flag;
-          this.sport.meta = res.data.data.meta;
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-        });
+      try {
+        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug)
+          .then(res => {
+            this.sport.id = res.data.data.id;
+            this.sport.name = res.data.data.name;
+            this.sport.slug = res.data.data.slug;
+            this.sport.flag = res.data.data.flag;
+            this.sport.meta = res.data.data.meta;
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     getLeagues() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship")
-        .then(res => {
-          this.championships = res.data.data.result;
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-        });
-
+      try {
+        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship")
+          .then(res => {
+            this.championships = res.data.data.result;
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     getMatches() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/nextmatches")
-        .then(res => {
-          this.matches = res.data.data.result;
-          this.showHideSpinner=false
-        })
-        .catch(err => {
-          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-          this.showHideSpinner=false
-        });
+      try {
+        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/nextmatches")
+          .then(res => {
+            this.matches = res.data.data.result;
+            this.showHideSpinner=false
+          })
+          .catch(err => {
+            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+            this.showHideSpinner=false
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     getChampionshipsNameById(value){
       let searched = this.championships

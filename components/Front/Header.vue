@@ -456,10 +456,14 @@ export default {
     },
   },
   async mounted() {
-    //await this.$axios.$get("/laravel/sanctum/csrf-cookie");
-    //this.form.indicatedby = this.$cookies.get("tokenaffiliate")
-    //this.link_indication = window.location.host+"?ref="
-    //await this.getUser()
+    try {
+      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
+    }catch (e){
+      console.log("fail", e)
+    }
+    this.form.indicatedby = this.$cookies.get("tokenaffiliate")
+    this.link_indication = window.location.host+"?ref="
+    await this.getUser()
   },
   created() {
     this.$nuxt.$on('openlogin', () => {
@@ -472,84 +476,99 @@ export default {
       this.$router.push('/auth/esqueci/senha')
     },
     async dologout(){
-      await this.$axios.$get("/laravel/api/logout");
-      this.user_id = null
-      this.username = null
-      await this.$cookies.remove('tokenauth')
-      await this.$cookies.remove('jogosbr_session')
-      //this.$store.commit('auth/logout')
-      this.$router.push('/')
-      //this.$router.go(0)
+      try {
+        await this.$axios.$get("/laravel/api/logout");
+        this.user_id = null
+        this.username = null
+        await this.$cookies.remove('tokenauth')
+        await this.$cookies.remove('jogosbr_session')
+        //this.$store.commit('auth/logout')
+        this.$router.push('/')
+        //this.$router.go(0)
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     async consultcpf() {
       if(this.form.document.length===14){
         this.loading = true;
-        await this.$axios.get('/laravel/api/consulta/cpf?cpf='+this.form.document).then(res => {
-          console.log(res.data)
-          this.form.name = res.data.nome;
-          this.form.birth = res.data.dtnasc;
+        try {
+          await this.$axios.get('/laravel/api/consulta/cpf?cpf='+this.form.document).then(res => {
+            console.log(res.data)
+            this.form.name = res.data.nome;
+            this.form.birth = res.data.dtnasc;
+            this.loading = false;
+          }).catch(err => {
+            const code = err
+            console.log(code.response.data)
+            this.loading = false;
+            (code.response.data.errors)
+              ? this.setErrors(code.response.data.errors)
+              : this.clearErrors();
+            (code.response.data.message==="Credentials not match")
+              ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+              : null;
+          });
           this.loading = false;
-        }).catch(err => {
-          const code = err
-          console.log(code.response.data)
-          this.loading = false;
-          (code.response.data.errors)
-            ? this.setErrors(code.response.data.errors)
-            : this.clearErrors();
-          (code.response.data.message==="Credentials not match")
-            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
-            : null;
-        });
-        this.loading = false;
+        }catch (e){
+          console.log("fail", e)
+        }
+
       }
     },
     async login() {
       this.loading = true;
-      await this.$axios.post('/laravel/api/login', {
-        email: this.form.email,
-        password: this.form.password,
-      })
-        .then(res => {
-          this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60});
-          this.$toast.success('Logado com sucesso!',{duration:600})
-          this.$router.go(0)
-        }).catch(err => {
-          const code = err
-          console.log(code.response.data)
-          this.loading = false;
-          (code.response.data.errors)
-            ? this.setErrors(code.response.data.errors)
-            : this.clearErrors();
-          (code.response.data.message==="Credentials not match")
-            ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
-            : null;
+      try {
+        await this.$axios.post('/laravel/api/login', {
+          email: this.form.email,
+          password: this.form.password,
+        })
+          .then(res => {
+            this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60});
+            this.$toast.success('Logado com sucesso!',{duration:600})
+            this.$router.go(0)
+          }).catch(err => {
+            const code = err
+            console.log(code.response.data)
+            this.loading = false;
+            (code.response.data.errors)
+              ? this.setErrors(code.response.data.errors)
+              : this.clearErrors();
+            (code.response.data.message==="Credentials not match")
+              ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
+              : null;
 
-        });
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     async register() {
-      await this.$axios.$get("/laravel/sanctum/csrf-cookie");
-      this.loading = true;
-      await this.$axios.post('/laravel/api/register', {
-        name: this.form.name,
-        username: this.form.username,
-        document: this.form.document,
-        email: this.form.email,
-        password: this.form.password,
-        password_confirmation: this.form.password_confirmation,
-        phone: this.form.phone,
-        birth: this.form.birth,
-      })
-        .then(res => {
-          this.$axios.post('/laravel/api/login', {
-            email: this.form.email,
-            password: this.form.password,
+      try {
+        await this.$axios.$get("/laravel/sanctum/csrf-cookie");
+        this.loading = true;
+
+        await this.$axios.post('/laravel/api/register', {
+          name: this.form.name,
+          username: this.form.username,
+          document: this.form.document,
+          email: this.form.email,
+          password: this.form.password,
+          password_confirmation: this.form.password_confirmation,
+          phone: this.form.phone,
+          birth: this.form.birth,
+        })
+          .then(res => {
+            this.$axios.post('/laravel/api/login', {
+              email: this.form.email,
+              password: this.form.password,
             })
-            .then(res => {
-              //this.$store.commit('auth/setToken', res.data)
-              this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
-              this.$toast.success('Logado com sucesso!',{duration:600})
-              this.$router.go(0)
-            }).catch(err => {
+              .then(res => {
+                //this.$store.commit('auth/setToken', res.data)
+                this.$cookies.set('tokenauth', res.data,{ maxAge: 60 * 60 * 24 * 7});
+                this.$toast.success('Logado com sucesso!',{duration:600})
+                this.$router.go(0)
+              }).catch(err => {
               const code = err
               //console.log(code.response.data.message.message)
               this.loading = false;
@@ -560,19 +579,22 @@ export default {
                 ? this.$toast.error('Email e/ou senha não conferem',{duration:600})
                 : null;
 
-          });
+            });
 
-        }).catch(err => {
-          const code = err
-          console.log(code.response.data)
-          this.loading = false;
-          (code.response.data.errors)
-            ? this.setErrors(code.response.data.errors)
-            : this.clearErrors();
-          (code.response.data.message==="minor")
-            ? this.$toast.error('CPF de pessoa menor de idade! Tente novamente.',{duration:600})
-            : null;
-      });
+          }).catch(err => {
+            const code = err
+            console.log(code.response.data)
+            this.loading = false;
+            (code.response.data.errors)
+              ? this.setErrors(code.response.data.errors)
+              : this.clearErrors();
+            (code.response.data.message==="minor")
+              ? this.$toast.error('CPF de pessoa menor de idade! Tente novamente.',{duration:600})
+              : null;
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     setErrors(errors) {
       this.error.name = errors.name ? errors.name[0] : null;
@@ -626,15 +648,19 @@ export default {
       this.$toast.success('Link Copiado!',{duration:600})
     },
     async getUser() {
-      if(await this.$cookies.get("tokenauth")){
-        await this.$axios.get("/laravel/api/user")
-          .then(res => {
-            this.user_id = res.data.data.id;
-            this.username = res.data.data.username;
-          })
-          .catch(err => {
-            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-          });
+      try {
+        if(await this.$cookies.get("tokenauth")){
+          await this.$axios.get("/laravel/api/user")
+            .then(res => {
+              this.user_id = res.data.data.id;
+              this.username = res.data.data.username;
+            })
+            .catch(err => {
+              this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+            });
+        }
+      }catch (e){
+        console.log("fail", e)
       }
     },
   },

@@ -61,19 +61,23 @@ export default {
 
   },
   async mounted() {
-    //await this.getPages()
+    await this.getPages()
   },
   methods: {
     async getPages() {
-      await this.$axios.get("/laravel/api/pages")
-        .then(res => {
-          if(res.data.data){
-            this.pages = res.data.data;
-          }
-        })
-        .catch(err => {
-          this.$toast.error('Erro!',{duration:600})
-        });
+      try {
+        await this.$axios.get("/laravel/api/pages")
+          .then(res => {
+            if(res.data.data){
+              this.pages = res.data.data;
+            }
+          })
+          .catch(err => {
+            this.$toast.error('Erro!',{duration:600})
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
   },
 

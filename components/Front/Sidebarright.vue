@@ -130,20 +130,24 @@ export default {
   },
   methods: {
     async getPromotion() {
-      await this.$axios.get("/laravel/api/promotion")
-        .then(res => {
-          this.promotion.id = res.data.data.id;
-          this.promotion.thumb = res.data.data.thumb;
-          this.promotion.name = res.data.data.name;
-          this.promotion.code = res.data.data.code;
-          this.promotion.description = res.data.data.description;
-          this.promotion.rollover = res.data.data.rollover;
-          this.promotion.limit = res.data.data.limit;
-          this.promotion.percent = res.data.data.percent;
-        })
-        .catch(err => {
-          this.$toast.error('Erro!',{duration:600})
-        });
+      try {
+        await this.$axios.get("/laravel/api/promotion")
+          .then(res => {
+            this.promotion.id = res.data.data.id;
+            this.promotion.thumb = res.data.data.thumb;
+            this.promotion.name = res.data.data.name;
+            this.promotion.code = res.data.data.code;
+            this.promotion.description = res.data.data.description;
+            this.promotion.rollover = res.data.data.rollover;
+            this.promotion.limit = res.data.data.limit;
+            this.promotion.percent = res.data.data.percent;
+          })
+          .catch(err => {
+            this.$toast.error('Erro!',{duration:600})
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
     },
     async removeFromBillet(id) {
       this.$store.commit('billet/removeItem', id)
@@ -157,17 +161,21 @@ export default {
     },
     async bet() {
       this.loading = true
-      await this.$axios.post('/laravel/api/sportsbook/bet', this.$store.state.billet.items)
-        .then(res => {
-         console.log(res)
-          this.loading = false
-          this.$store.commit('billet/clearBillet')
-          this.$store.dispatch('bets/fetchBets')
-        }).catch(err => {
-          this.loading = false
-          const code = err
-          console.log(code.response.data)
-        });
+      try {
+        await this.$axios.post('/laravel/api/sportsbook/bet', this.$store.state.billet.items)
+          .then(res => {
+            console.log(res)
+            this.loading = false
+            this.$store.commit('billet/clearBillet')
+            this.$store.dispatch('bets/fetchBets')
+          }).catch(err => {
+            this.loading = false
+            const code = err
+            console.log(code.response.data)
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
       console.log(this.$store.state.billet.items)
     },
   },

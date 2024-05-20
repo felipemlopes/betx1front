@@ -31,12 +31,16 @@ export const mutations = {
 
 export const actions = {
   async fetchBalance({commit}){
-    if(await this.$cookies.get("tokenauth")){
-      await this.$axios.get("/laravel/api/user/balance").then( response => {
-        commit('setTotalbalance', response.data.data.total)
-        commit('setBalance', response.data.data.saldo)
-        commit('setBonus', response.data.data.bonus)
-      }).catch( e => console.log(e) );
+    try {
+      if(await this.$cookies.get("tokenauth")){
+        await this.$axios.get("/laravel/api/user/balance").then( response => {
+          commit('setTotalbalance', response.data.data.total)
+          commit('setBalance', response.data.data.saldo)
+          commit('setBonus', response.data.data.bonus)
+        }).catch( e => console.log(e) );
+      }
+    }catch (e) {
+      console.log("fail", e)
     }
   },
 

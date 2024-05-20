@@ -25,36 +25,44 @@ export const mutations = {
 export const actions = {
   async fetchGames({commit}){
     let gamesData = [];
-    await this.$axios.get("/laravel/api/cassino/games").then( response => {
-      response.data.data.forEach( el => {
-        let details = {
-          id: el.id,
-          name: el.name,
-          slug: el.slug,
-          image: el.image,
-          external_id: el.external_id,
-        }
-        gamesData.push(details);
-      });
-      commit('setGames', gamesData)
-    }).catch( e => console.log(e) );
+    try {
+      await this.$axios.get("/laravel/api/cassino/games").then( response => {
+        response.data.data.forEach( el => {
+          let details = {
+            id: el.id,
+            name: el.name,
+            slug: el.slug,
+            image: el.image,
+            external_id: el.external_id,
+          }
+          gamesData.push(details);
+        });
+        commit('setGames', gamesData)
+      }).catch( e => console.log(e) );
+    }catch (e){
+      console.log("fail", e)
+    }
   },
 
   fetchPopularGames({commit}){
     let gamesData = [];
-    this.$axios.get("/laravel/api/cassino/popular-games").then( response => {
-      response.data.data.forEach( el => {
-        let details = {
-          id: el.id,
-          name: el.name,
-          slug: el.slug,
-          image: el.image,
-          external_id: el.external_id,
-        }
-        gamesData.push(details);
-      });
-      commit('setPopularGames', gamesData)
-    }).catch( e => console.log(e) );
+    try {
+      this.$axios.get("/laravel/api/cassino/popular-games").then( response => {
+        response.data.data.forEach( el => {
+          let details = {
+            id: el.id,
+            name: el.name,
+            slug: el.slug,
+            image: el.image,
+            external_id: el.external_id,
+          }
+          gamesData.push(details);
+        });
+        commit('setPopularGames', gamesData)
+      }).catch( e => console.log(e) );
+    }catch (e){
+      console.log("fail", e)
+    }
   }
 }
 

@@ -28,4 +28,5 @@ export default function ({ $axios, redirect, $store, app }) {
       redirect('/login')
     }
   })
+
 }
