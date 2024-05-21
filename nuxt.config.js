@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'JogosBr',
+    title: 'Vemx1bet',
     htmlAttrs: {
       lang: 'pt-br'
     },
@@ -12,7 +12,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+      //{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ],
     bodyAttrs: {
       "data-sidebar-color":"dark"
