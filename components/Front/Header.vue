@@ -80,7 +80,7 @@
         <div class="logo-box">
 
           <NuxtLink :to="{ name:'index'  }" class="text-white d-block" style="font-size: 18px;width: 100%;text-align: center;margin-top: 15px;">
-            LOGO
+            <img src="/logo.png" style="height: 30px;"/>
           </NuxtLink>
 
         </div>

@@ -4,7 +4,7 @@
       <div class="row mt-3 mb-5">
         <div class="col-md-4">
           <NuxtLink to="/" class="logo">
-            <img alt="LOGO" src="" style="height: 75px;">
+            <img alt="LOGO" src="/logo.png" style="height: 35px;">
           </NuxtLink>
         </div>
         <div class="col-md-4">

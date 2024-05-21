@@ -26,7 +26,7 @@
             <fa-icon :icon="faBars" class=""/>
           </button>
 
-          <img src="" alt="LOGO">
+
 
           <button class="btn btn-mobile" v-on:click="toggleBetBillet">
             <fa-icon :icon="faFileInvoice" class=""/>

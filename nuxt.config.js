@@ -8,7 +8,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Cassino Online e Apostas Desportiva Online' },
+      { hid: 'description', name: 'description', content: 'Vemx1bet - Apostas Esportivas Online e Cassino' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
