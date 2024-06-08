@@ -85,8 +85,8 @@
             </li>
 
             <li class="list-inline-item w-100">
-              <NuxtLink :to="{ name:'esportes-slug-paises-slugpais', params:{slug:'soccer',slugpais:'italy'}}" class="text-white">
-                <img src="/flags/it.svg" class="bt248 mr-2" width="32" height="32" style="fill: currentcolor; color: rgb(255, 255, 255); width: 32px; height: 32px; margin-right: 10px;border-radius: 50%;">
+              <NuxtLink :to="{ name:'esportes-slug-paises-slugpais', params:{slug:'soccer',slugpais:'world'}}" class="text-white">
+                <img src="/flags/world.png" class="bt248 mr-2" width="32" height="32" style="fill: currentcolor; color: rgb(255, 255, 255); width: 32px; height: 32px; margin-right: 10px;border-radius: 50%;">
                 <span class=" text-white-50"> Internacional </span>
               </NuxtLink>
             </li>
