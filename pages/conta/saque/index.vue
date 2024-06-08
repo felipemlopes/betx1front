@@ -5,7 +5,7 @@
         Saque
       </h1>
       <div class="col-md-12 text-center mt-5">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if="this.sended===false">
           <div class="col-md-5">
             <p class="text-white">
               Antes de fazer um saque Pix, certifique-se de ter registrado seu CPF como chave Pix no seu aplicativo bancário.
@@ -24,7 +24,7 @@
 
       </div>
 
-      <div class="col-md-12 mb-3 pb-3">
+      <div class="col-md-12 mb-3 pb-3" v-if="this.sended===false">
         <div class="row justify-content-center">
           <div class="col-md-5">
 
@@ -37,6 +37,26 @@
               <label class="form-label">Saldo disponível para saque: R$</label>
               <span>{{ this.$store.state.user.balance }}</span>
             </div>
+
+            <a class="pointer btn btn-primary mt-3" v-on:click="saque">
+              <i class="uil uil-copy"></i> Enviar
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <div v-else>
+        <div class="row justify-content-center">
+          <div class="col-md-5 mt-5">
+
+
+            <p class="text-center">
+              <fa-icon :icon="faCheck" class="fs-24 text-success"/>
+            </p>
+
+            <p class="text-center text-success fs-3"> Enviado com sucesso!</p>
+
+
           </div>
 
         </div>
@@ -46,12 +66,14 @@
 </template>
 
 <script>
+import {faCheck} from '@fortawesome/free-solid-svg-icons'
 export default {
   layout: 'conta',
 
   data() {
     return {
       loading: false,
+      sended: false,
       min_amount: false,
       form: {
         amount: null,
@@ -65,7 +87,11 @@ export default {
       },
     };
   },
-
+  computed: {
+    faCheck () {
+      return faCheck
+    },
+  },
   mounted() {
     //this.getSettings()
   },
@@ -92,13 +118,15 @@ export default {
     },
     async saque() {
       this.loading = true;
-      await this.$axios.post('/laravel/api/withdrawals', {
+      await this.$axios.post('/laravel/api/account/withdrawals', {
         amount: this.form.amount,
         pixkeytype: this.form.pixkeytype,
         pixkey: this.form.pixkey,
       })
         .then(res => {
           console.log(res)
+          this.$toast.success("Solicitado com sucesso",{duration:600})
+          this.sended = true
         }).catch(err => {
         const code = err
         this.setErrors(code.response.data.errors)

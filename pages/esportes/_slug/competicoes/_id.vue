@@ -1,10 +1,8 @@
 <template>
 
   <div class="container">
-    <div class="row mt-3">
-      <div class="col-md-12">
-        <img src="~/assets/images/banner.jpg" class="card-img-top img-fluid" style="height: 200px;object-fit: cover;opacity:1;border-radius: 10px;">
-      </div>
+    <div class="row mt-3 p-2">
+      <FrontBanner></FrontBanner>
     </div>
 
     <div class="row">
@@ -79,11 +77,13 @@
                         <span v-else>{{formatDate(item.date)}}</span>
                       </div>
                       <div class="col-sm-4 col-4 text-center">
-                        <button class="btn btn-primary" v-on:click="addToBillet({'id':item.id,'home_team':item.home_team,'away_team':item.away_team,'market':'1x2','team':1,'team_name':item.home_team,'amount':0,'odd':1.9})">
-                          <strong>1.9</strong>
+                        <button class="btn btn-primary" v-on:click="addToBillet({'id':item.id,'home_team':item.home_team,'away_team':item.away_team,'market':'Home/Away','team':1,'team_name':item.home_team,'amount':'','odd':$store.state.settings.oddDefault})">
+                          <strong>{{ $store.state.settings.oddDefault }}</strong>
+                          <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(item.liquidity).home }}</div>
                         </button>
-                        <button class="btn btn-primary" v-on:click="addToBillet({'id':item.id,'home_team':item.home_team,'away_team':item.away_team,'market':'1x2','team':2,'team_name':item.away_team,'amount':0,'odd':1.9})">
-                          <strong>1.9</strong>
+                        <button class="btn btn-primary" v-on:click="addToBillet({'id':item.id,'home_team':item.home_team,'away_team':item.away_team,'market':'Home/Away','team':2,'team_name':item.away_team,'amount':'','odd':$store.state.settings.oddDefault})">
+                          <strong>{{ $store.state.settings.oddDefault }}</strong>
+                          <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(item.liquidity).away }}</div>
                         </button>
                       </div>
                     </div>

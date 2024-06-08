@@ -1,6 +1,7 @@
 export const state = () => ({
   sports: [],
   countries: [],
+  countriesmenu: [],
 })
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   getCountries(state) {
     return state.countries
+  },
+  getCountriesmenu(state) {
+    return state.countriesmenu
   },
 }
 
@@ -19,6 +23,9 @@ export const mutations = {
   },
   setCountries (state, allItems) {
     state.countries = allItems
+  },
+  setCountriesmenu (state, allItems) {
+    state.countriesmenu = allItems
   },
 }
 
@@ -62,6 +69,27 @@ export const actions = {
           countriesData.push(details);
         });
         commit('setCountries', countriesData)
+      }).catch( e => console.log(e) );
+    }catch (e){
+      console.log("fail", e)
+    }
+  },
+  async fetchCountriesmenu({commit}){
+    let countriesData = [];
+    try {
+      await this.$axios.get("/laravel/api/sportsbook/countries/soccer/menu").then( response => {
+        response.data.data.forEach( el => {
+          let details = {
+            id: el.id,
+            name: el.name,
+            slug: el.slug,
+            flag: el.flag,
+            meta: el.meta,
+            status: el.status,
+          }
+          countriesData.push(details);
+        });
+        commit('setCountriesmenu', countriesData)
       }).catch( e => console.log(e) );
     }catch (e){
       console.log("fail", e)

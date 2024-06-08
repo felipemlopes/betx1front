@@ -38,8 +38,21 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/fontawesome'
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/laravel-echo'
   ],
+
+  echo: {
+    broadcaster: 'pusher',
+    key: 'app-key',
+    wsHost: '127.0.0.1',
+    wsPort: 6001,
+    wssPort: 6001,
+    forceTLS: false,
+    cluster: 'mt1',
+    enabledTransports: ['ws', 'wss'],
+    plugins: [ '~/plugins/echo.js' ]
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

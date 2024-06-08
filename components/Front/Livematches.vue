@@ -47,9 +47,11 @@
               <div class="col-sm-4 col-4 text-center">
                 <button class="btn btn-primary" v-on:click="addToBillet({'id':subitem.id,'home_team':subitem.home_team,'away_team':subitem.away_team,'market':'Home/Away','team':1,'team_name':subitem.home_team,'amount':'','odd':$store.state.settings.oddDefault})">
                   <strong>{{ $store.state.settings.oddDefault }}</strong>
+                  <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(subitem.liquidity).home }}</div>
                 </button>
                 <button class="btn btn-primary" v-on:click="addToBillet({'id':subitem.id,'home_team':subitem.home_team,'away_team':subitem.away_team,'market':'Home/Away','team':2,'team_name':subitem.away_team,'amount':'','odd':$store.state.settings.oddDefault})">
                   <strong>{{ $store.state.settings.oddDefault }}</strong>
+                  <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(subitem.liquidity).away }}</div>
                 </button>
               </div>
             </div>

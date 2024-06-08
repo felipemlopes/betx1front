@@ -498,6 +498,14 @@ export default {
       return faDice
     },
   },
+  created() {
+    this.$nuxt.$on('openlogin', () => {
+      this.modallogin = true
+    })
+    this.$nuxt.$on('openAffiliateModal', () => {
+      this.modalaffiliate = !this.modalaffiliate;
+    })
+  },
   async mounted() {
     await this.$axios.$get("/laravel/sanctum/csrf-cookie");
     this.link_indication = window.location.host+"?ref="
@@ -574,6 +582,7 @@ export default {
         password_confirmation: this.form.password_confirmation,
         phone: this.form.phone,
         birth: this.form.birth,
+        indicatedby: this.form.indicatedby,
       })
         .then(res => {
           this.$axios.post('/laravel/api/login', {
@@ -657,7 +666,8 @@ export default {
       this.modalaffiliate = false
     },
     copyLinkAffiliate() {
-      navigator.clipboard.writeText(this.link_indication)
+      navigator.clipboard.writeText(this.link_indication+this.user_id)
+      //navigator.clipboard.writeText(this.link_indication)
       this.$toast.success('Link Copiado!',{duration:600})
     },
     async getUser() {

@@ -35,6 +35,17 @@ export default {
     this.showHideSpinner = true;
   },
   async mounted() {
+    this.$echo.channel('bet')
+      .listen('Game', (e) => {
+        console.log(e);
+      })
+      .listen('App\Events\Odd', (e) => {
+        console.log("aqui");
+        console.log(e);
+      })
+      .listen('Odd', (e) => {
+        console.log(e);
+      });
     this.showHideSpinner = false;
     await this.$store.dispatch('sports/fetchSports')
     await this.$store.dispatch('sports/fetchCountries')

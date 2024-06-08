@@ -20,11 +20,14 @@
     "@nuxtjs/toast": "^3.3.1",
     "cookie-universal-nuxt": "^2.2.2",
     "core-js": "^3.25.3",
+    "laravel-echo": "^1.16.1",
     "node-fetch-native": "^1.4.1",
     "nuxt": "^2.15.8",
     "nuxt-mobile": "^1.0.1",
     "nuxt-sweetalert2": "^1.0.0",
     "nuxt-vue-multiselect": "^1.0.4",
+    "pusher-js": "^8.4.0-rc2",
+    "socket.io-client": "^4.7.5",
     "v-click-outside": "^3.2.0",
     "v-select2-component": "^0.4.7",
     "vue": "^2.7.10",
@@ -34,6 +37,7 @@
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
+    "@nuxtjs/laravel-echo": "^1.1.0",
     "@nuxtjs/localforage": "^1.1.0"
   }
 }

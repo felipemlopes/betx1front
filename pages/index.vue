@@ -19,9 +19,27 @@
               {{this.sport.name_display}}
             </h4>
 
+            <div class="mt-2">
+
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-aovivo', params:{slug:this.slugSport}}" class="nav-link active">Ao vivo</nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-proximos', params:{slug:this.slugSport}}" class="nav-link">Próximos</nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link :to="{ name:'esportes-slug-paises', params:{slug:this.slugSport}}" class="nav-link">Países</nuxt-link>
+                </li>
+              </ul>
+
+            </div>
+
           </div>
         </div>
       </div>
+
+
 
       <div class="col-md-12">
 

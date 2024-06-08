@@ -49,7 +49,7 @@ import {faBars} from '@fortawesome/free-solid-svg-icons'
 export default {
   data() {
     return {
-      showHideSpinner: true
+      showHideSpinner: true,
     }
   },
   computed: {
@@ -69,6 +69,7 @@ export default {
     this.showHideSpinner = true;
   },
   async mounted() {
+
     this.showHideSpinner = false;
 
     await this.$store.dispatch('sports/fetchSports')
@@ -81,6 +82,32 @@ export default {
     if(this.$cookies.get('tokenauth')){
       await this.$store.dispatch('bets/fetchBets')
     }
+    await this.$store.dispatch('bets/fetchOpenbets')
+
+    /*this.$echo.channel('game-public-channel')
+      .listen('Game', (e) => {
+        console.log(e);
+      })
+      .listen('App\Events\Odd', (e) => {
+        console.log("aqui");
+        console.log(e);
+      })
+      .listen('Odd', (e) => {
+        console.log(e);
+      });
+
+    this.$echo.channel('odd-public-channel')
+      .listen('Game', (e) => {
+        console.log(e);
+      })
+      .listen('App\Events\Odd', (e) => {
+        console.log("aqui");
+        console.log(e);
+      })
+      .listen('Odd', (e) => {
+        console.log(e);
+      });*/
+
 
   },
 
@@ -90,7 +117,9 @@ export default {
     },
     toggleBetBillet() {
       this.$nuxt.$emit('togglebillet')
-    }
+    },
+
+
   }
 };
 </script>

@@ -45,22 +45,26 @@
       </div>
     </div>
 
-    <p class="text-warning m-0 fw-bold">Apostas</p>
+    <p class="text-warning m-0 fw-bold">Apostas não correspondidas</p>
     <div class="card bg-dark">
       <div class="card-body">
 
-        <div class="d-flex justify-content-between" v-for="(item,index) in this.$store.state.bets.bets">
+        <div class="d-flex justify-content-between" v-for="(item,index) in this.$store.state.bets.openbets">
           <div>
             <p class="m-0 text-white">
-              <strong>{{ item.option_selected }}</strong>
+              <strong>R${{item.pending_amount}}</strong>
+              <br>
+              <span class="text-dark fs-11">{{ item.selection }}</span>
             </p>
             <p class="fs-11">
               {{ item.game }}
             </p>
           </div>
           <div style="text-align: right;">
-            <p class="m-0" :class="item.status_class">
-              {{ item.status }}
+            <p class="m-0">
+              <button class="btn btn-danger btn-sm" v-on:click="removeBet(item.id)">
+                <fa-icon :icon="faTrashAlt"/>
+              </button>
             </p>
             <p class="fs-11">
               {{ item.date }}
@@ -167,7 +171,8 @@ export default {
             console.log(res)
             this.loading = false
             this.$store.commit('billet/clearBillet')
-            this.$store.dispatch('bets/fetchBets')
+            this.$store.dispatch('bets/fetchOpenbets')
+            this.$store.dispatch('user/fetchBalance')
           }).catch(err => {
             this.loading = false
             const code = err
@@ -176,7 +181,25 @@ export default {
       }catch (e){
         console.log("fail", e)
       }
-      console.log(this.$store.state.billet.items)
+      this.$store.state.billet.items
+    },
+    async removeBet(id){
+      this.loading = true
+      try {
+        await this.$axios.post('/laravel/api/sportsbook/bet/'+id+'/cancel',[])
+          .then(res => {
+            console.log(res)
+            this.loading = false
+            this.$store.dispatch('bets/fetchOpenbets')
+            this.$store.dispatch('user/fetchBalance')
+          }).catch(err => {
+            this.loading = false
+            const code = err
+          });
+      }catch (e){
+        console.log("fail", e)
+      }
+      this.$store.dispatch('bets/fetchOpenbets')
     },
   },
 

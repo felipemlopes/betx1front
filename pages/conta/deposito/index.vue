@@ -110,7 +110,7 @@ export default {
         .then(res => {
           console.log(res.data.data.code)
           this.codecopy = res.data.data.code
-          this.imageQRCode = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl='+res.data.data.code
+          this.imageQRCode = res.data.data.qrcode
         }).catch(err => {
         const code = err
         console.log(code.response.data.error.message)
