@@ -2,7 +2,7 @@
 
   <div class="row">
 
-    <FrontLoadspinner v-if="this.showHideSpinner"/>
+    <FrontLoadspinner v-if="this.showspinner"/>
 
     <div class="mt-0 py-1" v-else v-for="(item, index) in this.matches">
       <a v-b-toggle="'collapse-'+index" class="text-white font-weight-bold d-flex justify-content-between border-bottom">
@@ -86,11 +86,20 @@ export default {
         volleyball: "8",
       },
       showHideSpinner: true,
+      showHideSpinnerSport: true,
+      showHideSpinnerLeagues: true,
     };
   },
   computed: {
     faAngleDown () {
       return faAngleDown
+    },
+    showspinner () {
+      if(this.showHideSpinner===true || this.showHideSpinnerSport===true || this.showHideSpinnerLeagues===true){
+        return true
+      }else{
+        return false
+      }
     },
     sport_id () {
       if(this.sport_slug==="soccer"){
@@ -118,7 +127,6 @@ export default {
     await this.getMatches()
   },
   methods: {
-    parseJson,
     getCountryById(country_id) {
       let searched = this.$store.state.sports.countries
       searched = searched.filter((item) => {
@@ -142,9 +150,11 @@ export default {
             this.sport.slug = res.data.data.slug;
             this.sport.flag = res.data.data.flag;
             this.sport.meta = res.data.data.meta;
+            this.showHideSpinnerSport = false
           })
           .catch(err => {
             this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+            this.showHideSpinnerSport = false
           });
       }catch (e){
         console.log("fail", e)
@@ -155,9 +165,11 @@ export default {
         this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship")
           .then(res => {
             this.championships = res.data.data.result;
+            this.showHideSpinnerLeagues = false
           })
           .catch(err => {
             this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+            this.showHideSpinnerLeagues = false
           });
       }catch (e){
         console.log("fail", e)
