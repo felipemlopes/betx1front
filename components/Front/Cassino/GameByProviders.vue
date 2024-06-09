@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     async getGamesPGSoft() {
-      await this.$axios.get("/laravel/api/cassino/games/pg-soft/by-providers?qtd=4")
+      await this.$axios.get("/laravel/api/cassino/provider/pg-soft/gamesfeatured")
         .then(res => {
           this.gamespg = res.data.data;
         })
@@ -141,7 +141,7 @@ export default {
         });
     },
     async getGamesPragmaticPlay() {
-      await this.$axios.get("/laravel/api/cassino/games/pragmatic-play/by-providers?qtd=4")
+      await this.$axios.get("/laravel/api/cassino/provider/pragmatic-play/gamesfeatured")
         .then(res => {
           this.gamespragmatic = res.data.data;
         })
@@ -150,7 +150,7 @@ export default {
         });
     },
     async getGamesMancalaGaming() {
-      await this.$axios.get("/laravel/api/cassino/games/mancala-gaming/by-providers?qtd=4")
+      await this.$axios.get("/laravel/api/cassino/provider/mancala-gaming/gamesfeatured")
         .then(res => {
           this.gamesmancalagaming = res.data.data;
         })
