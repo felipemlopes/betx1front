@@ -3,7 +3,7 @@
   <div>
     <div class="row justify-content-center mt-5">
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-body">
             <h1 class="text-center text-wite pb-2 mb-2 fs-3">Redefinir Senha</h1>
