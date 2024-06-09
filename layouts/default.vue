@@ -81,8 +81,9 @@ export default {
     await this.$store.dispatch('banners/fetchBanners')
     if(this.$cookies.get('tokenauth')){
       await this.$store.dispatch('bets/fetchBets')
+      await this.$store.dispatch('bets/fetchOpenbets')
     }
-    await this.$store.dispatch('bets/fetchOpenbets')
+
 
     /*this.$echo.channel('game-public-channel')
       .listen('Game', (e) => {
