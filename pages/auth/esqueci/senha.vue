@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  layout: 'default',
+  layout: 'cassino',
   middleware: ['visitante'],
   data() {
     return {
