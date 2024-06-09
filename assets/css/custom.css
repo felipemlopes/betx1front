@@ -364,7 +364,8 @@ body{
 }
 .carrossel-item img{
   height: 250px;
-  width: auto;
+  width: -webkit-fill-available;
+  border-radius: 12px;
 }
 @media (max-width: 991px) {
   .carrossel-item{
@@ -372,7 +373,8 @@ body{
   }
   .carrossel-item img{
     height: 150px;
-    width: auto;
+    width: -webkit-fill-available;
+    border-radius: 12px;
   }
 }
 

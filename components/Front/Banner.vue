@@ -5,9 +5,8 @@
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 prevent-select carrossel-item" v-for="(item, index) in this.$store.state.banners.banners">
           <a :href="item.url" v-if="item.url">
-            <img :src="item.image">
+            <img :src="item.image" class="">
           </a>
-
           <a v-else>
             <img :src="item.image">
           </a>
