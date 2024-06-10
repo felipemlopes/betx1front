@@ -498,9 +498,6 @@ body{
   .btn-mobile > .text{
     display: none;
   }
-  .logo-box{
-    display:none;
-  }
 }
 
 .counter-bets{
@@ -508,4 +505,44 @@ body{
   top: -10px !important;
 }
 
+.deposit-icon{
+  display: none;
+}
+.username-text{
+  display: inline-block;
+}
+@media (max-width:800px){
+  .deposit-icon{
+    display: block;
+  }
+  .deposit-text{
+    display:none;
+  }
+  .username-text{
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:50px;
+    display:inline-block;
+  }
+}
+@media (max-width:650px){
+  .logo-box{
+    display:none;
+  }
+  .username-text{
+    display:none;
+  }
+}
+
+@media (max-width:576px){
+  .div-btn-odds{
+    display: flex;
+    justify-content: space-around !important;
+  }
+  .div-team{
+    display: flex;
+    justify-content: space-around !important;
+  }
+}
 

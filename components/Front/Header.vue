@@ -39,7 +39,7 @@
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')" v-click-outside="externalClick">
             <div class="dropdown">
               <div class="text-white px-2 py-2 pointer" v-on:click="toggleUserMenu">
-                {{username}}
+                <span class="username-text">{{username}}</span>
                 <fa-icon :icon="faGear" class="pl-2 pr-5"/>
               </div>
               <div class="dropdown-menu" :class="{ 'show': usermenushow }" style="position: absolute; right: 0px;">

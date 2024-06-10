@@ -31,7 +31,7 @@
             </div>
 
             <div class="row table-line" v-for="(subitem, i) in item">
-              <div class="col-sm-6 col-6 ellipsis">
+              <div class="col-sm-6 col-12 ellipsis div-team">
                 <div class="d-flex">
                   <div class="text-warning">{{subitem.home_score}}</div>
                   <div class="fw-bold px-2">{{subitem.home_team}}</div>
@@ -43,8 +43,9 @@
               </div>
               <div class="col-sm-2 col-2">
                 {{subitem.elapsed}}
+                {{subitem.elapsed>0?'º':''}}
               </div>
-              <div class="col-sm-4 col-4 text-center">
+              <div class="col-sm-4 col-12 text-center div-btn-odds">
                 <button class="btn btn-primary" v-on:click="addToBillet({'id':subitem.id,'home_team':subitem.home_team,'away_team':subitem.away_team,'market':'Home/Away','team':1,'team_name':subitem.home_team,'amount':'','odd':$store.state.settings.oddDefault})">
                   <strong>{{ $store.state.settings.oddDefault }}</strong>
                   <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(subitem.liquidity).home }}</div>
