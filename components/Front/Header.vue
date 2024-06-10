@@ -23,6 +23,7 @@
 
           <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
             <NuxtLink :to="{ name:'conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
+              <fa-icon :icon="faMoneyBill" class="pr-5 deposit-icon" />
               <span class="deposit-text">Depositar</span>
             </NuxtLink>
           </li>

@@ -498,6 +498,9 @@ body{
   .btn-mobile > .text{
     display: none;
   }
+  .logo-box{
+    display:none;
+  }
 }
 
 .counter-bets{
