@@ -107,6 +107,12 @@
 import {faPlay} from '@fortawesome/free-solid-svg-icons'
 export default {
   layout: 'cassino',
+  data() {
+    return {
+      crashgames: [],
+      slotgames: [],
+    }
+  },
   computed: {
     faPlay () {
       return faPlay
