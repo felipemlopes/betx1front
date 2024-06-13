@@ -1,22 +1,23 @@
 <template>
 
   <div class="container">
+    <iframe v-if="hasiframe" class="embed-responsive-item"
+            id="slot-iframe"
+            :src="iframe"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay"></iframe>
+
+    <iframe v-else class="embed-responsive-item"
+            id="slot-iframe"
+            :srcdoc="iframe"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay"></iframe>
     <div class="row">
       <div class="col-md-12">
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe v-if="hasiframe" class="embed-responsive-item"
-                   id="slot-iframe"
-                   :src="iframe"
-                   frameborder="0"
-                   allowfullscreen
-                   allow="autoplay"></iframe>
 
-          <iframe v-else class="embed-responsive-item"
-                  id="slot-iframe"
-                  :srcdoc="iframe"
-                  frameborder="0"
-                  allowfullscreen
-                  allow="autoplay"></iframe>
         </div>
       </div>
     </div>
