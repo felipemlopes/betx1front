@@ -6,21 +6,15 @@
             :src="iframe"
             frameborder="0"
             allowfullscreen
-            allow="autoplay"></iframe>
+            allow="autoplay" style="width: 100%;height: 100%;"></iframe>
 
     <iframe v-else class="embed-responsive-item"
             id="slot-iframe"
             :srcdoc="iframe"
             frameborder="0"
             allowfullscreen
-            allow="autoplay"></iframe>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="embed-responsive embed-responsive-16by9">
+            allow="autoplay" style="width: 100%;height: 100%;"></iframe>
 
-        </div>
-      </div>
-    </div>
     <!--<div class="embed-responsive embed-responsive-16by9">
       <iframe  class="embed-responsive-item"
         id="slot-iframe"

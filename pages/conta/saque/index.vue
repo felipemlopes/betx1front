@@ -35,7 +35,7 @@
 
             <div class="form-group mt-30 text-white mt-3">
               <label class="form-label">Saldo disponível para saque: R$</label>
-              <span>{{ this.$store.state.user.balance }}</span>
+              <span>{{ this.available_amount }}</span>
             </div>
 
             <a class="pointer btn btn-primary mt-3" v-on:click="saque">
@@ -75,6 +75,7 @@ export default {
       loading: false,
       sended: false,
       min_amount: false,
+      available_amount: 0.00,
       form: {
         amount: null,
         pixkeytype: "",
@@ -94,6 +95,7 @@ export default {
   },
   mounted() {
     //this.getSettings()
+    this.getAvailableAmount()
   },
 
   methods: {
@@ -111,6 +113,15 @@ export default {
       await this.$axios.get("/laravel/api/settings")
         .then(res => {
           this.withdraw_min_amount = res.data.data.withdraw_min_amount;
+        })
+        .catch(err => {
+          this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
+        });
+    },
+    async getAvailableAmount() {
+      await this.$axios.get("/laravel/api/user/balance/available")
+        .then(res => {
+          this.available_amount = res.data.data.amount;
         })
         .catch(err => {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
