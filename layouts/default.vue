@@ -85,30 +85,23 @@ export default {
     }
 
 
-    /*this.$echo.channel('game-public-channel')
-      .listen('Game', (e) => {
+    this.$echo.channel('game-public-channel')
+      .listen('GameFinished', (e) => {
         console.log(e);
+        this.$nuxt.$emit('gamefinished',e)
       })
-      .listen('App\Events\Odd', (e) => {
-        console.log("aqui");
+      .listen('GameUpdateLiquidity', (e) => {
         console.log(e);
+        this.$nuxt.$emit('gameupdateliquidity',e)
       })
-      .listen('Odd', (e) => {
+      .listen('GameUpdateResult', (e) => {
         console.log(e);
+        this.$nuxt.$emit('gameupdateresult',e)
+      })
+      .listen('GameUpdateTime', (e) => {
+        console.log(e);
+        this.$nuxt.$emit('gameupdatetime',e)
       });
-
-    this.$echo.channel('odd-public-channel')
-      .listen('Game', (e) => {
-        console.log(e);
-      })
-      .listen('App\Events\Odd', (e) => {
-        console.log("aqui");
-        console.log(e);
-      })
-      .listen('Odd', (e) => {
-        console.log(e);
-      });*/
-
 
   },
 

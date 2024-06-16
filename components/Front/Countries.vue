@@ -8,7 +8,7 @@
       <a v-b-toggle="'collapse-'+index" class="text-white font-weight-bold d-flex justify-content-between">
           <span class="text-dark fw-bold fs-16">
             <img :src="item.flag" style="width: 20px;">
-            {{item.name}}
+            {{item.country_displayname}}
           </span>
           <span class="badge text-warning">
             {{ getChampionshipsByCountry(item.id).length }}

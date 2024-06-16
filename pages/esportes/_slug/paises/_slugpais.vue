@@ -16,7 +16,7 @@
         <a class="text-white font-weight-bold d-flex justify-content-between">
           <span class="text-dark fw-bold fs-16">
             <img :src="country.flag" style="width: 20px;">
-            {{country.name}}
+            {{country.displayname}}
           </span>
           <span class="badge text-warning">
             {{ this.championships.length }}
@@ -99,6 +99,7 @@ export default {
         .then(res => {
           this.country.id = res.data.data.id;
           this.country.name = res.data.data.name;
+          this.country.displayname = res.data.data.country_displayname;
           this.country.name_display = res.data.data.name;
           this.country.slug = res.data.data.slug;
           this.country.icon = res.data.data.flag;

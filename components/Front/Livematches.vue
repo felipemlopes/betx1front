@@ -2,64 +2,16 @@
 
   <div class="row">
 
-    <FrontLoadspinner v-if="this.showHideSpinner"/>
+    <FrontLoadspinner v-if="this.showspinner"/>
 
-    <div class="mt-0 py-1" v-else v-for="(item, index) in this.matches">
-      <a v-b-toggle="'collapse-'+index" class="text-white font-weight-bold d-flex justify-content-between border-bottom">
-          <span class="text-dark fw-bold fs-16">
-            <img :src="getCountryFlagById(item[0].country_id)" :style="{width:'15px'}"> {{ getCountryById(item[0].country_id) }} / {{ index }}
-
-          </span>
-          <span class="badge text-warning">
-            <fa-icon :icon="faAngleDown" style="margin-right: 10px;"/>
-          </span>
-      </a>
-      <b-collapse :id="'collapse-'+index">
-        <div class="card bg-dark">
-          <div class="card-body p-0">
-
-            <div class="row table-header">
-              <div class="col-sm-6 col-6">
-                Evento
-              </div>
-              <div class="col-sm-2 col-2">
-                Tempo
-              </div>
-              <div class="col-sm-4 col-4 text-center">
-                Resultado
-              </div>
-            </div>
-
-            <div class="row table-line" v-for="(subitem, i) in item">
-              <div class="col-sm-6 col-12 ellipsis div-team">
-                <div class="d-flex">
-                  <div class="text-warning">{{subitem.home_score}}</div>
-                  <div class="fw-bold px-2">{{subitem.home_team}}</div>
-                </div>
-                <div class="d-flex">
-                  <div class="text-warning">{{subitem.away_score}}</div>
-                  <div class="fw-bold px-2">{{subitem.away_team}}</div>
-                </div>
-              </div>
-              <div class="col-sm-2 col-2">
-                {{subitem.elapsed}}
-                {{subitem.elapsed>0?'º':''}}
-              </div>
-              <div class="col-sm-4 col-12 text-center div-btn-odds">
-                <button class="btn btn-primary" v-on:click="addToBillet({'id':subitem.id,'home_team':subitem.home_team,'away_team':subitem.away_team,'market':'Home/Away','team':1,'team_name':subitem.home_team,'amount':'','odd':$store.state.settings.oddDefault})">
-                  <strong>{{ $store.state.settings.oddDefault }}</strong>
-                  <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(subitem.liquidity).home }}</div>
-                </button>
-                <button class="btn btn-primary" v-on:click="addToBillet({'id':subitem.id,'home_team':subitem.home_team,'away_team':subitem.away_team,'market':'Home/Away','team':2,'team_name':subitem.away_team,'amount':'','odd':$store.state.settings.oddDefault})">
-                  <strong>{{ $store.state.settings.oddDefault }}</strong>
-                  <div class="fs-11 d-block" style="height: 16px">{{ JSON.parse(subitem.liquidity).away }}</div>
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </b-collapse>
+    <div class="mt-0 py-1" v-else v-for="(item, index) in this.championships">
+      <FrontCompetitionlive
+        :country_id="item.country_id"
+        :country_flag="item.country_flag"
+        :country_name="item.country_name"
+        :country_displayname="item.country_displayname"
+        :competition_id="item.id"
+        :competition_name="item.name"></FrontCompetitionlive>
     </div>
   </div>
 
@@ -87,7 +39,6 @@ export default {
       },
       showHideSpinner: true,
       showHideSpinnerSport: true,
-      showHideSpinnerLeagues: true,
     };
   },
   computed: {
@@ -95,7 +46,7 @@ export default {
       return faAngleDown
     },
     showspinner () {
-      if(this.showHideSpinner===true || this.showHideSpinnerSport===true || this.showHideSpinnerLeagues===true){
+      if(this.showHideSpinner===true || this.showHideSpinnerSport===true){
         return true
       }else{
         return false
@@ -124,23 +75,8 @@ export default {
   async mounted() {
     await this.getSport()
     await this.getLeagues()
-    await this.getMatches()
   },
   methods: {
-    getCountryById(country_id) {
-      let searched = this.$store.state.sports.countries
-      searched = searched.filter((item) => {
-        return parseInt(item.id) === parseInt(country_id)
-      })
-      return searched[0]?searched[0]?.name:null;
-    },
-    getCountryFlagById(country_id) {
-      let searched = this.$store.state.sports.countries
-      searched = searched.filter((item) => {
-        return parseInt(item.id) === parseInt(country_id)
-      })
-      return searched[0]?searched[0]?.flag:null;
-    },
     getSport() {
       try {
         this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug)
@@ -162,53 +98,18 @@ export default {
     },
     getLeagues() {
       try {
-        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship")
+        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship/live")
           .then(res => {
-            this.championships = res.data.data.result;
-            this.showHideSpinnerLeagues = false
+            this.championships = res.data.data;
+            this.showHideSpinner = false
           })
           .catch(err => {
             this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-            this.showHideSpinnerLeagues = false
+            this.showHideSpinner = false
           });
       }catch (e){
         console.log("fail", e)
       }
-    },
-    getMatches() {
-      try {
-        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/livematches")
-          .then(res => {
-            this.matches = res.data.data.result;
-            this.showHideSpinner=false
-          })
-          .catch(err => {
-            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-            this.showHideSpinner=false
-          });
-      }catch (e){
-        console.log("fail", e)
-      }
-    },
-    getChampionshipsNameById(value){
-      let searched = this.championships
-      searched = searched.filter((item) => {
-        return parseInt(item.id) === parseInt(value)
-      })
-      return searched[0]?searched[0]?.name:null;
-    },
-    async addToBillet(payload) {
-      if(this.$cookies.get('tokenauth')){
-        this.$store.commit('billet/addItem', payload)
-      }else{
-        this.$nuxt.$emit('openlogin')
-        //this.$emit("openlogin");
-      }
-      //this.$toast.success('Adicionado ao bilhete de apostas!',{duration:600})
-    },
-    formatDate(date) {
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour:'numeric', minute:'numeric' }
-      return new Date(date).toLocaleDateString('pt', options)
     },
   },
 
