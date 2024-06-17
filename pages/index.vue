@@ -44,7 +44,7 @@
       <div class="col-md-12">
 
         <div class="row">
-          <FrontNextmatches :sport_slug="this.slugSport"></FrontNextmatches>
+          <FrontFeaturedmatches :sport_slug="this.slugSport"></FrontFeaturedmatches>
         </div>
 
       </div>
