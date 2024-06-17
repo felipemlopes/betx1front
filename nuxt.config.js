@@ -45,7 +45,7 @@ export default {
   echo: {
     broadcaster: 'pusher',
     key: 'app-key',
-    wsHost: '127.0.0.1',
+    wsHost: 'socket.vemx1bet.com',
     wsPort: 6001,
     wssPort: 6001,
     forceTLS: false,
