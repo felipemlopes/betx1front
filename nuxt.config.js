@@ -46,11 +46,11 @@ export default {
     broadcaster: 'pusher',
     key: 'app-key',
     wsHost: 'socket.vemx1bet.com',
-    wsPort: 6001,
-    wssPort: 6001,
+    wsPort: 80,
+    wssPort: 80,
     forceTLS: false,
     cluster: 'mt1',
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws'/*, 'wss'*/],
     plugins: [ '~/plugins/echo.js' ]
   },
 
