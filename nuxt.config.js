@@ -47,10 +47,10 @@ export default {
     key: 'app-key',
     wsHost: 'socket.vemx1bet.com',
     wsPort: 80,
-    wssPort: 80,
+    wssPort: 443,
     forceTLS: false,
     cluster: 'mt1',
-    enabledTransports: ['ws'/*, 'wss'*/],
+    enabledTransports: ['ws', 'wss'],
     plugins: [ '~/plugins/echo.js' ]
   },
 
