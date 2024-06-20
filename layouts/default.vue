@@ -84,8 +84,27 @@ export default {
       await this.$store.dispatch('bets/fetchOpenbets')
     }
 
+    var channel = this.$ably.channels.get("myChannel")
+    channel.subscribe(message=>
+    {
+      if(message.name==="GameFinished"){
+        console.log(message.data);
+        this.$nuxt.$emit('gamefinished',message.data)
+      }else if(message.name==="GameUpdateLiquidity"){
+        console.log(message.data);
+        this.$nuxt.$emit('gameupdateliquidity',message.data)
+      }else if(message.name==="GameUpdateResult"){
+        console.log(message.data);
+        this.$nuxt.$emit('gameupdateresult',message.data)
+      }else if(message.name==="GameUpdateTime"){
+        console.log(message.data);
+        this.$nuxt.$emit('gameupdatetime',message.data)
+      }
+      //console.log(message.name);
+      //console.log(message.data);
+    })
 
-    this.$echo.channel('game-public-channel')
+    /*this.$echo.channel('game-public-channel')
       .listen('GameFinished', (e) => {
         console.log(e);
         this.$nuxt.$emit('gamefinished',e)
@@ -101,7 +120,7 @@ export default {
       .listen('GameUpdateTime', (e) => {
         console.log(e);
         this.$nuxt.$emit('gameupdatetime',e)
-      });
+      });*/
 
   },
 

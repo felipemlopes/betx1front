@@ -31,6 +31,7 @@ export default {
     { src: "@/plugins/vClickOutside", ssr: false },
     { src: "@/plugins/vuehorizontal", ssr: false },
     { src: "@/plugins/select2", ssr: false },
+    { src: "@/plugins/ably.js", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,17 +43,17 @@ export default {
     '@nuxtjs/laravel-echo'
   ],
 
-  echo: {
+  /*echo: {
     broadcaster: 'pusher',
     key: 'app-key',
     wsHost: 'socket.vemx1bet.com',
     wsPort: 80,
     wssPort: 443,
-    forceTLS: false,
+    forceTLS: true,
     cluster: 'mt1',
     enabledTransports: ['ws', 'wss'],
     plugins: [ '~/plugins/echo.js' ]
-  },
+  },*/
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
