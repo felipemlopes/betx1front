@@ -34,7 +34,8 @@ body{
   width: 100%;
   transition: .5s ease;
   backface-visibility: hidden;
-  height: 206px;
+  /*height: 16rem;*/
+  object-fit: fill;
 }
 .game-box:hover .game-img {
   opacity: 0.5;
@@ -562,19 +563,50 @@ body{
 }
 
 @media (max-width:768px){
+  .game-box{
+    background-color: transparent!important;
+    border: 0px!important;
+  }
   .game-img{
     opacity: 1;
     display: block;
-    width: 100%;
+    width: 8rem;
     transition: .5s ease;
     backface-visibility: hidden;
-    height: 206px;
-    object-fit: cover !important;;
+    height: 12rem;
+    object-fit: fill !important;
     object-position: center !important;
+  }
+  .rowgames{
+    height: 12.5rem;
+    overflow: hidden;
+  }
+  .game-top-text{
+    display: none;
+  }
+  .game-box{
+    border: 0px !important;
   }
 }
 @media (max-width:360px){
   .div-deposit{
     margin-top: 10px !important;
+  }
+}
+
+@media (max-width:450px){
+  .game-img{
+    opacity: 1;
+    display: block;
+    width: 6em;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    height: 9em;
+    object-fit: fill !important;
+    object-position: center !important;
+  }
+  .rowgames{
+    height: 9em;
+    overflow: hidden;
   }
 }
