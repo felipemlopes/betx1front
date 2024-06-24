@@ -15,6 +15,22 @@
         <FrontFooter />
       </div>
 
+      <div class="menu-mobile">
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-mobile" v-on:click="toggleMenu">
+            <fa-icon :icon="faBars" class=""/>
+          </button>
+
+          <div class="text-success px-3 balance-mobile-text" style="padding-top:0.5rem;padding-bottom:0.5rem;" v-show="this.$cookies.get('tokenauth')">
+            <span class="fs-6">R$</span>
+            <span class="fs-6">
+               {{this.$store.state.user.balance}}
+            </span>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 </template>
 
@@ -24,18 +40,23 @@ import '~/assets/css/app.min.css'
 import '~/assets/css/bootstrap-dark.min.css'
 import '~/assets/css/app-dark.min.css'
 import '~/assets/css/custom.css'
-
+import {faBars} from '@fortawesome/free-solid-svg-icons'
 export default {
   data() {
     return {
       showHideSpinner: true
     }
   },
+  computed: {
+    faBars () {
+      return faBars
+    },
+  },
   beforeCreate() {
     this.showHideSpinner = true;
   },
   async mounted() {
-    this.$echo.channel('bet')
+    /*this.$echo.channel('bet')
       .listen('Game', (e) => {
         console.log(e);
       })
@@ -45,19 +66,19 @@ export default {
       })
       .listen('Odd', (e) => {
         console.log(e);
-      });
+      });*/
     this.showHideSpinner = false;
-    await this.$store.dispatch('sports/fetchSports')
-    await this.$store.dispatch('sports/fetchCountries')
     await this.$store.dispatch('sidebar/fetchDevice')
     await this.$store.dispatch('user/fetchBalance')
     await this.$store.dispatch('banners/fetchBanners')
     await this.$store.dispatch('settings/fetchSettings')
     await this.$store.dispatch('banners/fetchBanners')
-    if(this.$cookies.get('tokenauth')){
-      await this.$store.dispatch('bets/fetchBets')
-    }
-
   },
+  methods: {
+    toggleMenu() {
+      this.$nuxt.$emit('togglemenu')
+    },
+
+  }
 };
 </script>

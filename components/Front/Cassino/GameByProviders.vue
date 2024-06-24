@@ -4,9 +4,9 @@
       <div class="col-md-12">
         <div class="col-md-12 d-flex justify-content-between">
           <div>
-            <h4 class="text-white">Jogos da Mancala Gaming</h4>
+            <h4 class="text-white">Jogos da PG Soft</h4>
           </div>
-          <nuxt-link :to="{ name:'cassino-game-provedores-slug', params:{slug:'mancala-gaming'} }" class="btn btn-xs btn-soft-dark" style="height: fit-content;">
+          <nuxt-link :to="{ name:'cassino-game-provedores-slug', params:{slug:'pg-soft'} }" class="btn btn-xs btn-soft-dark" style="height: fit-content;">
             <span class="text-warning">Ver todos</span>
           </nuxt-link>
 
@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3" v-for="(item, index) in this.gamesmancalagaming">
+          <div class="col-4 col-md-3" v-for="(item, index) in this.gamespg">
             <div class="card game-box">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
                 <img :src="item.image" class="game-img">
@@ -40,9 +40,9 @@
       <div class="col-md-12">
         <div class="col-md-12 d-flex justify-content-between">
           <div>
-            <h4 class="text-white">Jogos da PG Soft</h4>
+            <h4 class="text-white">Jogos da Mancala Gaming</h4>
           </div>
-          <nuxt-link :to="{ name:'cassino-game-provedores-slug', params:{slug:'pg-soft'} }" class="btn btn-xs btn-soft-dark" style="height: fit-content;">
+          <nuxt-link :to="{ name:'cassino-game-provedores-slug', params:{slug:'mancala-gaming'} }" class="btn btn-xs btn-soft-dark" style="height: fit-content;">
             <span class="text-warning">Ver todos</span>
           </nuxt-link>
 
@@ -50,7 +50,7 @@
       </div>
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3" v-for="(item, index) in this.gamespg">
+          <div class="col-4 col-md-3" v-for="(item, index) in this.gamesmancalagaming">
             <div class="card game-box">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
                 <img :src="item.image" class="game-img">
@@ -86,7 +86,7 @@
       </div>
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3" v-for="(item, index) in this.gamespragmatic">
+          <div class="col-4 col-md-3" v-for="(item, index) in this.gamespragmatic">
             <div class="card game-box">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
                 <img :src="item.image" class="game-img">

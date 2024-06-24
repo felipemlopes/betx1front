@@ -494,9 +494,21 @@ body{
   width: 25px!important;
   height: 25px!important;
 }
+.balance-mobile-text{
+  display: block;
+}
+.balance-mobile-text{
+  display: none;
+}
 @media (max-width:500px){
   .btn-mobile > .text{
     display: none;
+  }
+  .balance-text{
+    display: none;
+  }
+  .balance-mobile-text{
+    display: block;
   }
 }
 
@@ -528,9 +540,12 @@ body{
 }
 @media (max-width:650px){
   .logo-box{
-    display:none;
+    /*display:none;*/
   }
   .username-text{
+    display:none;
+  }
+  .billet-text{
     display:none;
   }
 }
@@ -546,3 +561,20 @@ body{
   }
 }
 
+@media (max-width:768px){
+  .game-img{
+    opacity: 1;
+    display: block;
+    width: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    height: 206px;
+    object-fit: cover !important;;
+    object-position: center !important;
+  }
+}
+@media (max-width:360px){
+  .div-deposit{
+    margin-top: 10px !important;
+  }
+}

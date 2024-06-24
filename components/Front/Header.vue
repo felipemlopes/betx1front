@@ -21,14 +21,14 @@
 
         <ul class="list-unstyled topnav-menu float-end mb-0" v-show="this.$cookies.get('tokenauth')">
 
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+          <li class="dropdown notification-list px-2 py-2 div-deposit" v-show="this.$cookies.get('tokenauth')">
             <NuxtLink :to="{ name:'conta-deposito'}" class="nav-link right-bar-toggle btn btn-primary text-uppercase fw-bold fs-5 ">
               <fa-icon :icon="faMoneyBill" class="pr-5 deposit-icon" />
               <span class="deposit-text">Depositar</span>
             </NuxtLink>
           </li>
 
-          <li class="dropdown notification-list px-2 py-2" v-show="this.$cookies.get('tokenauth')">
+          <li class="dropdown notification-list px-2 py-2 balance-text" v-show="this.$cookies.get('tokenauth')">
             <div class="text-white px-3" style="padding-top:0.5rem;padding-bottom:0.5rem;">
               <span class="fs-4">
                 R$ {{this.$store.state.user.balance}}

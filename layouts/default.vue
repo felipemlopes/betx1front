@@ -26,11 +26,16 @@
             <fa-icon :icon="faBars" class=""/>
           </button>
 
-
+          <div class="text-success px-3 balance-mobile-text" style="padding-top:0.5rem;padding-bottom:0.5rem;" v-show="this.$cookies.get('tokenauth')">
+            <span class="fs-6">R$</span>
+            <span class="fs-6">
+               {{this.$store.state.user.balance}}
+            </span>
+          </div>
 
           <button class="btn btn-mobile" v-on:click="toggleBetBillet">
             <fa-icon :icon="faFileInvoice" class=""/>
-            <span class="text">Bilhete de Aposta</span>
+            <span class="text billet-text">Bilhete de Aposta</span>
             <span class="badge badge-success bg-primary text-black-50 counter-bets">3</span>
           </button>
         </div>
@@ -88,16 +93,16 @@ export default {
     channel.subscribe(message=>
     {
       if(message.name==="GameFinished"){
-        console.log(message.data);
+        console.log(message);
         this.$nuxt.$emit('gamefinished',message.data)
       }else if(message.name==="GameUpdateLiquidity"){
-        console.log(message.data);
+        console.log(message);
         this.$nuxt.$emit('gameupdateliquidity',message.data)
       }else if(message.name==="GameUpdateResult"){
-        console.log(message.data);
+        console.log(message);
         this.$nuxt.$emit('gameupdateresult',message.data)
       }else if(message.name==="GameUpdateTime"){
-        console.log(message.data);
+        console.log(message);
         this.$nuxt.$emit('gameupdatetime',message.data)
       }
       //console.log(message.name);

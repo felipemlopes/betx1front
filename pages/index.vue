@@ -10,44 +10,7 @@
 
     <div class="row">
 
-      <div class="col-md-12 mt-3">
-        <div class="card bg-dark">
-          <div class="card-body py-2 px-2">
-            <h4 class="text-white-50 m-0">
-              <svg v-html="this.sport.icon" class="bt248" width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="fill: currentcolor; color: #ffee59; width: 18px; height: 18px;">
-              </svg>
-              {{this.sport.name_display}}
-            </h4>
-
-            <div class="mt-2">
-
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <nuxt-link :to="{ name:'esportes-slug-aovivo', params:{slug:this.slugSport}}" class="nav-link active">Ao vivo</nuxt-link>
-                </li>
-                <li class="nav-item">
-                  <nuxt-link :to="{ name:'esportes-slug-proximos', params:{slug:this.slugSport}}" class="nav-link">Próximos</nuxt-link>
-                </li>
-                <li class="nav-item">
-                  <nuxt-link :to="{ name:'esportes-slug-paises', params:{slug:this.slugSport}}" class="nav-link">Países</nuxt-link>
-                </li>
-              </ul>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="col-md-12">
-
-        <div class="row">
-          <FrontFeaturedmatches :sport_slug="this.slugSport"></FrontFeaturedmatches>
-        </div>
-
-      </div>
+      <FrontCassinoGameByProviders></FrontCassinoGameByProviders>
 
     </div>
   </div>

@@ -40,7 +40,7 @@
       </div>
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3" v-for="(item, index) in this.crashgames">
+          <div class="col-4 col-md-3" v-for="(item, index) in this.crashgames">
             <div class="card game-box">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
                 <img :src="item.image" class="game-img">
@@ -75,7 +75,7 @@
       </div>
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-3" v-for="(item, index) in this.slotgames">
+          <div class="col-4 col-md-3" v-for="(item, index) in this.slotgames">
             <div class="card game-box">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
                 <img :src="item.image" class="game-img">
