@@ -570,15 +570,31 @@ body{
   .game-img{
     opacity: 1;
     display: block;
-    width: 8rem;
+    /*width: 8rem;*/
     transition: .5s ease;
     backface-visibility: hidden;
-    height: 12rem;
-    object-fit: fill !important;
+    /*height: 12rem;*/
+    object-fit: scale-down !important;
     object-position: center !important;
   }
   .rowgames{
     height: 12.5rem;
+    overflow: hidden;
+  }
+  .rowgamesmancala{
+    height: 8rem;
+    overflow: hidden;
+  }
+  .rowgamespragmatic{
+    height: 5rem;
+    overflow: hidden;
+  }
+  .rowgamescrash{
+    height: 7.5rem;
+    overflow: hidden;
+  }
+  .rowgamesslot{
+    height: 7.5rem;
     overflow: hidden;
   }
   .game-top-text{
@@ -598,15 +614,31 @@ body{
   .game-img{
     opacity: 1;
     display: block;
-    width: 6em;
+    /*width: 6em;*/
     transition: .5s ease;
     backface-visibility: hidden;
-    height: 9em;
-    object-fit: fill !important;
+    /*height: 9em;*/
+    object-fit: scale-down !important;
     object-position: center !important;
   }
   .rowgames{
-    height: 9em;
+    height: 9rem;
+    overflow: hidden;
+  }
+  .rowgamesmancala{
+    height: 5.5rem;
+    overflow: hidden;
+  }
+  .rowgamespragmatic{
+    height: 4rem;
+    overflow: hidden;
+  }
+  .rowgamescrash{
+    height: 6rem;
+    overflow: hidden;
+  }
+  .rowgamesslot{
+    height: 6rem;
     overflow: hidden;
   }
 }

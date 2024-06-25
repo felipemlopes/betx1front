@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        <div class="row rowgames">
+        <div class="row rowgamesmancala">
           <div class="col-4 col-md-3" v-for="(item, index) in this.gamesmancalagaming">
             <div class="card game-box bg-transparent">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        <div class="row rowgames">
+        <div class="row rowgamespragmatic">
           <div class="col-4 col-md-3" v-for="(item, index) in this.gamespragmatic">
             <div class="card game-box bg-transparent text-center d-flex justify-content-center">
               <NuxtLink :to="{ name:'cassino-game-slug', params:{slug:item.slug}  }" class="game-box">
