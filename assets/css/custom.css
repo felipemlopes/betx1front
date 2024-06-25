@@ -603,6 +603,13 @@ body{
   .game-box{
     border: 0px !important;
   }
+  .carrossel-item img {
+    height: auto!important;
+    width: -webkit-fill-available;
+  }
+  .carrossel-item{
+    height: auto!important;
+  }
 }
 @media (max-width:360px){
   .div-deposit{
@@ -640,5 +647,12 @@ body{
   .rowgamesslot{
     height: 6rem;
     overflow: hidden;
+  }
+  .carrossel-item img {
+    height: auto!important;
+    width: -webkit-fill-available;
+  }
+  .carrossel-item{
+    height: auto!important;
   }
 }
