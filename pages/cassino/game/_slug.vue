@@ -14,25 +14,6 @@
             frameborder="0"
             allowfullscreen
             allow="autoplay" style="width: 100%;height: 100%;"></iframe>
-
-    <!--<div class="embed-responsive embed-responsive-16by9">
-      <iframe  class="embed-responsive-item"
-        id="slot-iframe"
-        :src="iframe"
-        frameborder="0"
-        allowfullscreen
-        allow="autoplay"></iframe>
-
-      <iframe v-else class="embed-responsive-item"
-              id="slot-iframe"
-              :srcdoc="iframe"
-              frameborder="0"
-              allowfullscreen
-              allow="autoplay"></iframe>
-    </div>-->
-
-
-
   </div>
 
 </template>

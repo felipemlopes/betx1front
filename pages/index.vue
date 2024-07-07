@@ -20,7 +20,7 @@
 <script>
 import {faPlay} from '@fortawesome/free-solid-svg-icons'
 export default {
-  layout: 'default',
+  layout: 'cassino',
   data(){
     return {
       promotion: null,

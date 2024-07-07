@@ -656,3 +656,57 @@ body{
     height: auto!important;
   }
 }
+
+.matches-featured.card{
+  height: 156px;
+}
+.matches-featured{
+  height: 156px;
+  overflow: hidden;
+}
+@media (max-width:768px){
+  .matches-featured.card{
+    height: 156px;
+  }
+  .matches-featured{
+    height: 156px;
+    overflow: hidden;
+  }
+}
+
+.team-name{
+  min-width: 100px;
+  text-align: center;
+}
+.div-team-score-mobile{
+  display: none;
+}
+.team-score-mobile{
+  display: none;
+}
+@media (max-width:576px){
+  .header-match{
+    display: none!important;
+  }
+  .match-time{
+    display: none!important;
+  }
+  .match-score{
+    display: none!important;
+  }
+  .header-match-markets{
+    justify-content: space-around !important;
+  }
+  .odds-btn-div{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .div-team-score-mobile{
+    display: flex;
+    justify-content: space-around;
+  }
+  .team-score-mobile{
+    display: block;
+  }
+}
