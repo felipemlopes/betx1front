@@ -1,19 +1,30 @@
 <template>
 
-  <div class="row">
-
-    <FrontLoadspinner v-if="this.showspinner"/>
-
-    <div class="mt-0 py-1" v-else v-for="(item, index) in this.championships">
-
-      <FrontCompetitionfeatured
-        :country_id="item.country_id"
-        :country_flag="item.country_flag"
-        :country_name="item.country_name"
-        :country_displayname="item.country_displayname"
-        :competition_id="item.id"
-        :competition_name="item.name"></FrontCompetitionfeatured>
-
+  <div class="row matches-featured">
+    <div class="col-md-4 px-1" v-for="(item,index) in this.matches">
+      <div class="card bg-white">
+        <div class="card-body" style="background: url('/soccer.jpg');background-position: center; opacity: 1;">
+          <p class="text-white fw-bold">{{ formatDate(item.date) }}</p>
+          <div class="d-flex justify-content-around">
+            <div class="text-white fw-bold">{{ item.home_team }}</div>
+            <div class="text-white fw-bold">{{ item.away_team }}</div>
+          </div>
+          <div class="d-flex justify-content-around">
+            <div class="bg-white rounded-1 p-1 justify-content-between d-flex" style="width: 60px;">
+              <div class="fs-11">1</div>
+              <div class="fw-bold">
+                {{ $store.state.settings.oddDefault }}
+              </div>
+            </div>
+            <div class="bg-white rounded-1 p-1 justify-content-between d-flex" style="width: 60px;">
+              <div class="fs-11">2</div>
+              <div class="fw-bold">
+                {{ $store.state.settings.oddDefault }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -29,90 +40,36 @@ export default {
   data(){
     return {
       matches: [],
-      championships: [],
-      sport: {
-        soccer: "1",
-        baseball: "2",
-        handball: "3",
-        basketball: "4",
-        hockey: "5",
-        nfl: "6",
-        rugby: "7",
-        volleyball: "8",
-      },
       showHideSpinner: true,
-      showHideSpinnerSport: true,
     };
   },
   computed: {
-    faAngleDown () {
+    faAngleDown() {
       return faAngleDown
-    },
-    showspinner () {
-      if(this.showHideSpinner===true || this.showHideSpinnerSport===true){
-        return true
-      }else{
-        return false
-      }
-    },
-    sport_id () {
-      if(this.sport_slug==="soccer"){
-        return this.sport.soccer
-      }else if(this.sport_slug==="baseball"){
-        return this.sport.baseball
-      }else if(this.sport_slug==="handball"){
-        return this.sport.handball
-      }else if(this.sport_slug==="basketball"){
-        return this.sport.basketball
-      }else if(this.sport_slug==="hockey"){
-        return this.sport.hockey
-      }else if(this.sport_slug==="nfl"){
-        return this.sport.nfl
-      }else if(this.sport_slug==="rugby"){
-        return this.sport.rugby
-      }else if(this.sport_slug==="volleyball"){
-        return this.sport.volleyball
-      }
     },
   },
   async mounted() {
-    await this.getSport()
-    await this.getLeagues()
+    await this.getMatches()
   },
   methods: {
-    getSport() {
+    getMatches() {
       try {
-        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug)
+        this.$axios.get("/laravel/api/sportsbook/sports/soccer/featuredmatches")
           .then(res => {
-            this.sport.id = res.data.data.id;
-            this.sport.name = res.data.data.name;
-            this.sport.slug = res.data.data.slug;
-            this.sport.flag = res.data.data.flag;
-            this.sport.meta = res.data.data.meta;
-            this.showHideSpinnerSport = false
+            this.matches = res.data.data;
+            this.showHideSpinner = false
           })
           .catch(err => {
             this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-            this.showHideSpinnerSport = false
+            this.showHideSpinner = false
           });
       }catch (e){
         console.log("fail", e)
       }
     },
-    getLeagues() {
-      try {
-        this.$axios.get("/laravel/api/sportsbook/sports/"+this.sport_slug+"/championship/featured")
-          .then(res => {
-            this.championships = res.data.data;
-            this.showHideSpinner = false
-          })
-          .catch(err => {
-            this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})
-            this.showHideSpinner = false
-          });
-      }catch (e){
-        console.log("fail", e)
-      }
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour:'numeric', minute:'numeric' }
+      return new Date(date).toLocaleDateString('pt', options)
     },
   },
 
