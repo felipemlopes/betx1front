@@ -498,13 +498,13 @@ export default {
         this.loading = true;
         try {
           await this.$axios.get('/laravel/api/consulta/cpf?cpf='+this.form.document).then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             this.form.name = res.data.nome;
             this.form.birth = res.data.dtnasc;
             this.loading = false;
           }).catch(err => {
             const code = err
-            console.log(code.response.data)
+            //console.log(code.response.data)
             this.loading = false;
             (code.response.data.errors)
               ? this.setErrors(code.response.data.errors)
@@ -533,7 +533,7 @@ export default {
             this.$router.go(0)
           }).catch(err => {
             const code = err
-            console.log(code.response.data)
+            //console.log(code.response.data)
             this.loading = false;
             (code.response.data.errors)
               ? this.setErrors(code.response.data.errors)
@@ -588,7 +588,7 @@ export default {
 
           }).catch(err => {
             const code = err
-            console.log(code.response.data)
+            //console.log(code.response.data)
             this.loading = false;
             (code.response.data.errors)
               ? this.setErrors(code.response.data.errors)

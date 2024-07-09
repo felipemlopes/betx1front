@@ -23,7 +23,10 @@
           <div class="mt-2">
             <ul class="nav nav-tabs">
               <li class="nav-item">
-                <nuxt-link :to="{ name:'esportes-slug-paises-slugpais-aovivo', params:{slug:this.$route.params.slug}}" class="nav-link active">Ao vivo</nuxt-link>
+                <nuxt-link :to="{ name:'esportes-slug-paises-slugpais', params:{slug:this.$route.params.slug}}" class="nav-link active">Home</nuxt-link>
+              </li>
+              <li class="nav-item">
+                <nuxt-link :to="{ name:'esportes-slug-paises-slugpais-aovivo', params:{slug:this.$route.params.slug}}" class="nav-link">Ao vivo</nuxt-link>
               </li>
               <li class="nav-item">
                 <nuxt-link :to="{ name:'esportes-slug-paises-slugpais-proximos', params:{slug:this.$route.params.slug}}" class="nav-link">Próximos</nuxt-link>
@@ -138,7 +141,7 @@ export default {
         });
     },
     getChampionships() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug+"/championship/live?country="+this.$route.params.slugpais)
+      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug+"/championship/home?country="+this.$route.params.slugpais)
         .then(res => {
           this.championships = res.data.data;
           this.showHideSpinner = false
@@ -149,13 +152,18 @@ export default {
         });
     },
     getMatches() {
-      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug+"/livematches?country="+this.$route.params.slugpais)
+      this.$axios.get("/laravel/api/sportsbook/sports/"+this.$route.params.slug+"/allmatches?country="+this.$route.params.slugpais)
         .then(res => {
-          console.log(this.partidas)
-          console.log(res.data.data)
           this.partidas = res.data.data;
-          console.log(this.partidas)
           this.showHideSpinner = false
+
+          let  result = this.partidas.reduce(function (r, a) {
+            r[a.league_id] = r[a.league_id] || [];
+            r[a.league_id].push(a);
+            return r;
+          }, Object.create(null));
+
+          this.partidas = result
         })
         .catch(err => {
           this.$toast.success(JSON.parse(err.request.response).error.message,{duration:600})

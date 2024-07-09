@@ -23,6 +23,9 @@
           <div class="mt-2">
             <ul class="nav nav-tabs">
               <li class="nav-item">
+                <nuxt-link :to="{ name:'esportes-slug-paises-slugpais', params:{slug:this.$route.params.slug}}" class="nav-link">Home</nuxt-link>
+              </li>
+              <li class="nav-item">
                 <nuxt-link :to="{ name:'esportes-slug-paises-slugpais-aovivo', params:{slug:this.$route.params.slug}}" class="nav-link">Ao vivo</nuxt-link>
               </li>
               <li class="nav-item">

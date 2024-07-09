@@ -19,12 +19,12 @@
     <div class="row table-line pt-1 pb-1" v-for="(item,index) in matches">
       <div class="col-sm-6 col-12 ellipsis div-team">
         <div class="d-flex">
-          <div class="fw-bold pr-2 team-name">
+          <div class="fw-bold pr-2 team-name text-start">
             {{item.home_team}}
           </div>
         </div>
         <div class="d-flex">
-          <div class="fw-bold pr-2 team-name">
+          <div class="fw-bold pr-2 team-name text-start">
             {{item.away_team}}</div>
         </div>
       </div>

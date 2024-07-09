@@ -6,7 +6,7 @@
         <FrontHeader />
         <FrontSidebar />
 
-        <div class="content-page-internal d-flex p-0" style="height: 80vh;">
+        <div class="content-page-internal d-flex p-0">
 
           <div class="custom-content-bet">
             <Nuxt />
