@@ -3,11 +3,11 @@
   <div class="row matches-featured">
     <div class="col-md-4 px-1" v-for="(item,index) in this.matches">
       <div class="card bg-white">
-        <div class="card-body" style="background: url('/6.png');background-position: center; opacity: 1;background-size: cover;">
+        <div class="card-body" style="background: url('/6.png');background-position: center; opacity: 1;background-size: cover;background-position: right;">
           <p class="text-white fw-bold">{{ formatDate(item.date) }}</p>
           <div class="d-flex justify-content-around">
-            <div class="text-white fw-bold">{{ item.home_team }}</div>
-            <div class="text-white fw-bold">{{ item.away_team }}</div>
+            <div class="text-white fw-bold" style="height: 45px;">{{ item.home_team }}</div>
+            <div class="text-white fw-bold" style="height: 45px;">{{ item.away_team }}</div>
           </div>
           <div class="d-flex justify-content-around">
             <div class="bg-white rounded-1 p-1 justify-content-between d-flex" style="width: 60px;">
