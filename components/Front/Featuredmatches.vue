@@ -3,7 +3,7 @@
   <div class="row matches-featured">
     <div class="col-md-4 px-1" v-for="(item,index) in this.matches">
       <div class="card bg-white">
-        <div class="card-body" style="background: url('/soccer.jpg');background-position: center; opacity: 1;">
+        <div class="card-body" style="background: url('/6.png');background-position: center; opacity: 1;">
           <p class="text-white fw-bold">{{ formatDate(item.date) }}</p>
           <div class="d-flex justify-content-around">
             <div class="text-white fw-bold">{{ item.home_team }}</div>
