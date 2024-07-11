@@ -78,7 +78,7 @@ export default {
   props: ['matches'],
   created() {
     this.$nuxt.$on('gamefinished', (item) => {
-      this.removeMatch(item.match_id)
+      //this.removeMatch(item.match_id)
     })
     this.$nuxt.$on('gameupdateliquidity', (item) => {
       this.updateMatchLiquidity(item.match_id,item.liquidity)
