@@ -88,6 +88,7 @@ export default {
     if(this.$cookies.get('tokenauth')){
       await this.$store.dispatch('bets/fetchBets')
       await this.$store.dispatch('bets/fetchOpenbets')
+      await this.$store.dispatch('bets/fetchMatchedbets')
     }
 
     var channel = this.$ably.channels.get("myChannel")
