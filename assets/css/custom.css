@@ -711,3 +711,13 @@ body{
     display: block;
   }
 }
+.sports-banner{
+  height: 200px;
+  overflow: hidden;
+}
+@media (max-width:576px){
+  .sports-banner{
+    height: 200px;
+    overflow: hidden;
+  }
+}

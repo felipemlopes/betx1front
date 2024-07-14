@@ -31,7 +31,7 @@ export default {
     { src: "@/plugins/vClickOutside", ssr: false },
     { src: "@/plugins/vuehorizontal", ssr: false },
     { src: "@/plugins/select2", ssr: false },
-    { src: "@/plugins/ably.js", ssr: false },
+    { src: "@/plugins/ably.js", ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
