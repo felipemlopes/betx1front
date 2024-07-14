@@ -712,12 +712,12 @@ body{
   }
 }
 .sports-banner{
-  height: 200px;
+  height: 212px;
   overflow: hidden;
 }
 @media (max-width:576px){
   .sports-banner{
-    height: 200px;
+    height: 212px;
     overflow: hidden;
   }
 }
