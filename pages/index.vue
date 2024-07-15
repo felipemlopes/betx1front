@@ -2,29 +2,6 @@
 
   <div class="container">
 
-    <div class="row mt-3 p-2 sports-banner">
-      <div class="col-md-3 col-6">
-        <nuxt-link :to="{name:'esportes-slug-paises-slugpais',params:{'slug':'soccer','slugpais':'world'}}">
-          <img src="/banner/1.jpeg" style="position: relative;width: 100%;height: 200px;object-fit: cover;object-position: top;border-radius: 10px;">
-        </nuxt-link>
-      </div>
-      <div class="col-md-3 col-6">
-        <nuxt-link :to="{name:'esportes-slug-paises-slugpais',params:{'slug':'soccer','slugpais':'world'}}">
-          <img src="/banner/4.jpeg" style="position: relative;width: 100%;height: 200px;object-fit: cover;object-position: top;border-radius: 10px;">
-        </nuxt-link>
-      </div>
-      <div class="col-md-3 col-6">
-        <nuxt-link :to="{name:'esportes-slug-paises-slugpais',params:{'slug':'soccer','slugpais':'world'}}">
-          <img src="/banner/5.jpeg" style="position: relative;width: 100%;height: 200px;object-fit: cover;object-position: top;border-radius: 10px;">
-        </nuxt-link>
-      </div>
-      <div class="col-md-3 col-6">
-        <nuxt-link :to="{name:'esportes-slug-paises-slugpais',params:{'slug':'soccer','slugpais':'world'}}">
-          <img src="/banner/6.jpeg" style="position: relative;width: 100%;height: 200px;object-fit: cover;object-position: top;border-radius: 10px;">
-        </nuxt-link>
-      </div>
-    </div>
-
     <div class="row mt-3 p-2">
       <FrontBanner></FrontBanner>
     </div>
