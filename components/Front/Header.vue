@@ -59,6 +59,10 @@
                   <fa-icon :icon="faUserPlus" style="margin-right: 10px;"/>
                   Indique Um Amigo
                 </a>
+                <NuxtLink :to="{ name:'conta-indicacoes'}" class="dropdown-item">
+                  <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
+                  Indicações
+                </NuxtLink>
                 <NuxtLink :to="{ name:'conta-transacoes'}" class="dropdown-item">
                   <fa-icon :icon="faReceipt" style="margin-right: 10px;"/>
                   Transações
