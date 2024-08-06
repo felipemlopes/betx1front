@@ -41,9 +41,11 @@
 
             <div class="text-danger" v-show="error.message">{{ error.message }}</div>
 
-            <a class="pointer btn btn-primary mt-3" v-on:click="saque">
-              <i class="uil uil-copy"></i> Enviar
+            <a class="pointer btn btn-primary mt-3" v-on:click="saque" :disabled="loading">
+              <span v-show="loading">Enviando</span>
+              <span v-show="!loading">Enviar</span>
             </a>
+
           </div>
 
         </div>
@@ -112,6 +114,7 @@ export default {
       this.error.amount = null;
       this.error.pixkeytype = null;
       this.error.pixkey = null;
+      this.error.message = null;
     },
     async getSettings() {
       await this.$axios.get("/laravel/api/settings")
@@ -132,6 +135,7 @@ export default {
         });
     },
     async saque() {
+      this.clearErrors()
       this.loading = true;
       await this.$axios.post('/laravel/api/account/withdrawals', {
         amount: this.form.amount,
@@ -142,6 +146,7 @@ export default {
           console.log(res)
           this.$toast.success("Solicitado com sucesso",{duration:600})
           this.sended = true
+          this.loading = false;
         }).catch(err => {
           const code = err
           if(code.response.data.errors){
@@ -149,6 +154,7 @@ export default {
           }else if(code.response.data.error){
             this.error.message = code.response.data.error.message
           }
+          this.loading = false;
         });
     },
   },

@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div v-if="$store.state.settings.modemaintenance==='2'">
       <LoadSpinner v-if="showHideSpinner" />
       <div class="" id="wrapper" :class="{'sidebar-enable': this.$store.state.sidebar.sidebarcassino }">
         <FrontHeader />
@@ -41,7 +41,25 @@
           </button>
         </div>
       </div>
+
     </div>
+
+    <div v-else>
+      <div class="" id="wrapper" :class="{'sidebar-enable': this.$store.state.sidebar.sidebarcassino }">
+        <FrontHeadermaintenance />
+
+        <div class="mt-5 d-flex justify-content-center p-0 pt-5 pb-3 row">
+
+          <div class="text-white fs-24 col-md-12 text-center">Em manutenção</div>
+          <div class="text-white fs-16 mt-4 col-md-12 text-center">Estamos trabalhando para restabelecer.</div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
 </template>
 
 <script>

@@ -397,6 +397,35 @@
       </div>
     </div>
 
+    <div class="modal fade show" :class="{'d-block': modalsuporte }" tabindex="-1" aria-modal="true" >
+      <div class="modal-dialog" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-on:click="closeModalSuporte"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="text-center text-warning pb-2 mb-2 fs-3">Suporte</h1>
+
+
+                <p class="fw-bold fs-5 text-center text-white">
+                  Entre em contato através do Telegram
+                </p>
+
+                <p class="text-center text-white">
+                  <a :href="getTelegramLink()" target="_blank">Iniciar</a>
+                </p>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -430,6 +459,7 @@ export default {
       modallogin: false,
       modalregister: false,
       modalaffiliate: false,
+      modalsuporte: false,
       loading: false,
       form: {
         name: null,
@@ -505,6 +535,10 @@ export default {
     this.$nuxt.$on('openAffiliateModal', () => {
       this.modalaffiliate = !this.modalaffiliate;
     })
+    this.$nuxt.$on('opensupport', () => {
+      console.log('recebeu 2')
+      this.modalsuporte = true;
+    })
   },
   async mounted() {
     await this.$axios.$get("/laravel/sanctum/csrf-cookie");
@@ -513,6 +547,9 @@ export default {
     this.form.indicatedby = this.$cookies.get("tokenaffiliate")
   },
   methods: {
+    getTelegramLink(){
+      return "https://t.me/"+ this.$store.state.settings.telegram
+    },
     esquecisenha(){
       this.modallogin = false
       this.$router.push('/auth/esqueci/senha')
@@ -664,6 +701,9 @@ export default {
     },
     closeModalAffiliate (event) {
       this.modalaffiliate = false
+    },
+    closeModalSuporte (event) {
+      this.modalsuporte = false
     },
     copyLinkAffiliate() {
       navigator.clipboard.writeText(this.link_indication+this.user_id)
