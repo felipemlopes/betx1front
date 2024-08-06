@@ -31,12 +31,15 @@
             <div class="form-group text-white">
               <label for="">Valor</label>
               <input type="text" id="amount" name="amount"class="form-control" v-mask="['######']" v-model="form.amount">
+              <div class="text-danger" v-show="error.amount">{{ error.amount }}</div>
             </div>
 
             <div class="form-group mt-30 text-white mt-3">
               <label class="form-label">Saldo disponível para saque: R$</label>
               <span>{{ this.available_amount }}</span>
             </div>
+
+            <div class="text-danger" v-show="error.message">{{ error.message }}</div>
 
             <a class="pointer btn btn-primary mt-3" v-on:click="saque">
               <i class="uil uil-copy"></i> Enviar
@@ -85,6 +88,7 @@ export default {
         amount: null,
         pixkeytype: null,
         pixkey: null,
+        message: null,
       },
     };
   },
@@ -139,9 +143,13 @@ export default {
           this.$toast.success("Solicitado com sucesso",{duration:600})
           this.sended = true
         }).catch(err => {
-        const code = err
-        this.setErrors(code.response.data.errors)
-      });
+          const code = err
+          if(code.response.data.errors){
+            this.setErrors(code.response.data.errors)
+          }else if(code.response.data.error){
+            this.error.message = code.response.data.error.message
+          }
+        });
     },
   },
 }

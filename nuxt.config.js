@@ -88,8 +88,8 @@ export default {
     suffix: false,
     icons: {
       solid: true,
-      brands: true,
-    },
+      brands: true
+    }
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -98,7 +98,7 @@ export default {
     baseURL: '/laravel',
     //baseURL: "http://cassino.fmlsoftware.com.br",
     credentials: true,
-    proxy: true,
+    proxy: true
   },
 
   proxy: {
